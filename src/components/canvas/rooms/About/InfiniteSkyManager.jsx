@@ -132,9 +132,9 @@ const AwardButton = ({ onClick, texture, paintedTexture, width, height, position
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Bold.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                VIEW
+                查看
             </Text>
         </group>
     );
@@ -258,8 +258,6 @@ const InfiniteSkyManager = ({ scrollProgressRef }) => {
  * Elements spread apart as they approach camera
  */
 const IntroMilestone = ({ z, scrollProgressRef }) => {
-    // Load avatar texture
-    const avatarTexture = useLoader(THREE.TextureLoader, '/textures/about/awatarnachmurce.webp');
     const { camera, viewport } = useThree();
     const isTouch = isTouchDevice();
 
@@ -350,9 +348,9 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/RubikScribble-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                TOMASZ SZMAJDA
+                习 思 想
             </Text>
 
             {/* Subtitle - Brand (spreads right) */}
@@ -363,21 +361,24 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 color="#4a4a4a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                (ITOM)
+                新时代 · 新征程
             </Text>
 
-            {/* Avatar on cloud - floating + spreads up-left */}
-            <mesh ref={avatarRef} position={[0, baseY, 0]}>
-                <planeGeometry args={[avatarWidth, avatarHeight]} />
-                <meshBasicMaterial color="#e0e0e0"
-                    map={avatarTexture}
-                    transparent
-                    side={THREE.DoubleSide}
-                    depthWrite={false}
-                />
-            </mesh>
+            {/* 红星徽章 - floating + spreads up-left (替换原作者头像) */}
+            <Text
+                ref={avatarRef}
+                position={[0, baseY, 0]}
+                fontSize={avatarWidth * 0.5}
+                color="#c8102e"
+                anchorX="center"
+                anchorY="middle"
+                outlineWidth={0.02}
+                outlineColor="#8b0000"
+            >
+                ★
+            </Text>
 
             {/* Motto - Line 1 (spreads right) */}
             <Text
@@ -387,10 +388,10 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 color="#555555"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
                 fontStyle="italic"
             >
-                "Crafting digital experiences
+                "以中国式现代化全面推进中华民族伟大复兴"
             </Text>
 
             {/* Motto - Line 2 (spreads left) */}
@@ -401,31 +402,30 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 color="#555555"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
                 fontStyle="italic"
             >
-                that push creative boundaries"
+                十八个章节 · 五大板块
             </Text>
         </group>
     );
 };
 
 /**
- * MOCK DATA FOR AWARDS
+ * AWARDS DATA → 知识库政治版
+ * 习思想 18 章按归属层分三组 (数据来自 研库/Wiki/05 政治/03 习思想/ 真实笔记 frontmatter)
+ * 布局沿用 certificate_grid: label=章名, date=页码·考频, image=现有证书纹理
  */
 const AWARDS_DATA = {
     featured: {
         id: 'award-featured',
         layout: 'certificate_grid',
-        title: 'Featured Projects Collection',
+        title: '导论 · 习近平新时代中国特色社会主义思想',
         items: [
-            { label: 'Featured - Awwwards', date: 'May 2025', image: '/textures/about/FEATURED.webp', url: 'https://awwwards.com' },
-            { label: 'Featured - CSS Design Awards', date: 'June 2025', image: '/textures/about/FEATURED.webp', url: 'https://cssdesignawards.com' },
-            { label: 'Featured - The FWA', date: 'July 2025', image: '/textures/about/FEATURED.webp', url: 'https://thefwa.com' },
-            { label: 'Featured - Behance', date: 'August 2025', image: '/textures/about/FEATURED.webp', url: 'https://behance.net' },
+            { label: '导论 · 习近平新时代中国特色社会主义思想', date: 'p.159–p.164 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
         ],
         platformConfig: {
-            label: 'HONOR',
+            label: '导论',
             color: '#1a1a1a',
             icon: '⭐'
         }
@@ -433,15 +433,16 @@ const AWARDS_DATA = {
     sotd: {
         id: 'award-sotd',
         layout: 'certificate_grid',
-        title: 'Site of the Day Awards',
+        title: '基本问题层 · 第 01–05 章',
         items: [
-            { label: 'SOTD - GSAP', date: 'February 13, 2026', image: '/textures/about/SOTDAYYOUNGMULTIGSAP.webp', url: 'https://www.linkedin.com/posts/greensock_site-of-the-day-young-multi-this-immersive-activity-7427567524940017664-zU2n?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE3TV6UBqXoaJXUN5-1s3ij6SQJwTRAcbCM' },
-            { label: 'SOTD - CSS Winner', date: 'January 24, 2026', image: '/textures/about/SOTDAYYOUNGMULTICSSWINNER.webp', url: 'https://www.csswinner.com/details/young-multi-official-experience/19045' },
-            { label: 'SOTD - Orpetron', date: 'January 29, 2026', image: '/textures/about/SOTDAYYOUNGMULTIORPETRON.webp', url: 'https://orpetron.com/sites/young-multi/' },
-            { label: 'SOTD - Design Nominess', date: 'February 17, 2026', image: '/textures/about/SOTDAYYOUNGMULTIDESIGNNOMINESS.webp', url: 'https://www.designnominees.com/sites/young-multi' }
+            { label: '第 01 章 · 新时代坚持和发展中国特色社会主义', date: 'p.165–p.171 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+            { label: '第 02 章 · 以中国式现代化全面推进中华民族伟大复兴', date: 'p.172–p.180 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+            { label: '第 03 章 · 坚持党的全面领导', date: 'p.181–p.184 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+            { label: '第 04 章 · 坚持以人民为中心', date: 'p.185–p.188 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+            { label: '第 05 章 · 全面深化改革开放', date: 'p.189–p.197 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
         ],
         platformConfig: {
-            label: 'AWARD',
+            label: '基本问题',
             color: '#1a1a1a',
             icon: '🏆'
         }
@@ -449,10 +450,18 @@ const AWARDS_DATA = {
     sotm: {
         id: 'award-sotm',
         layout: 'certificate_grid',
-        title: 'Site of the Month Awards',
-        items: [],
+        title: '布局安排层 · 第 06–12 章',
+        items: [
+            { label: '第 06 章 · 推动高质量发展', date: 'p.198–p.211 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 07 章 · 教育科技人才战略', date: 'p.212–p.220 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 08 章 · 发展全过程人民民主', date: 'p.221–p.231 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 09 章 · 全面依法治国', date: 'p.232–p.237 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 10 章 · 建设社会主义文化强国', date: 'p.238–p.245 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 11 章 · 保障和改善民生', date: 'p.246–p.252 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            { label: '第 12 章 · 建设社会主义生态文明', date: 'p.253–p.260 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+        ],
         platformConfig: {
-            label: 'AWARD',
+            label: '布局安排',
             color: '#1a1a1a',
             icon: '📅'
         }
@@ -460,10 +469,16 @@ const AWARDS_DATA = {
     other: {
         id: 'award-other',
         layout: 'certificate_grid',
-        title: 'Other Awards',
-        items: [],
+        title: '内外条件层 · 第 13–17 章',
+        items: [
+            { label: '第 13 章 · 维护和塑造国家安全', date: 'p.261–p.265 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            { label: '第 14 章 · 建设巩固国防和强大人民军队', date: 'p.266–p.269 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            { label: '第 15 章 · 一国两制和推进祖国完全统一', date: 'p.270–p.276 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            { label: '第 16 章 · 中国特色大国外交和推动构建人类命运共同体', date: 'p.277–p.284 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            { label: '第 17 章 · 全面从严治党', date: 'p.285–p.294 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+        ],
         platformConfig: {
-            label: 'PRESTIGE',
+            label: '内外条件',
             color: '#1a1a1a',
             icon: '👑'
         }
@@ -622,9 +637,9 @@ const AwardsMilestone = ({ z, scrollProgressRef }) => {
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/RubikScribble-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                AWARDS
+                荣 誉
             </Text>
 
             {/* === SOTD (behind SOTY, rendered second) === */}
@@ -671,9 +686,9 @@ const AwardsMilestone = ({ z, scrollProgressRef }) => {
                     color="#1a1a1a"
                     anchorX="center"
                     anchorY="middle"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                 >
-                    SOTD
+                    高频
                 </Text>
                 {/* AWARD COUNT */}
                 <Text
@@ -732,9 +747,9 @@ const AwardsMilestone = ({ z, scrollProgressRef }) => {
                     color="#1a1a1a"
                     anchorX="center"
                     anchorY="middle"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                 >
-                    SOTM
+                    中频
                 </Text>
                 {/* AWARD COUNT */}
                 <Text
@@ -792,9 +807,9 @@ const AwardsMilestone = ({ z, scrollProgressRef }) => {
                     color="#1a1a1a"
                     anchorX="center"
                     anchorY="middle"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                 >
-                    OTHER
+                    低频
                 </Text>
                 {/* AWARD COUNT */}
                 <Text
@@ -824,8 +839,8 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
     const freelanceRef = useRef();
 
     // Load textures
-    const uoTexture = useLoader(THREE.TextureLoader, '/textures/about/uowyspa.webp');
-    const freelanceTexture = useLoader(THREE.TextureLoader, '/textures/about/freelancewyspa.webp');
+    const uoTexture = useLoader(THREE.TextureLoader, '/textures/about/island_left.png');
+    const freelanceTexture = useLoader(THREE.TextureLoader, '/textures/about/island_right.png');
 
     // Texture settings
     uoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -901,9 +916,9 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/RubikScribble-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                JOURNEY
+                学 习 路 径
             </Text>
 
             {/* Subtitle */}
@@ -913,9 +928,9 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                 color="#555555"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                My path so far...
+                五大板块 · 十八个章节
             </Text>
 
             {/* === UO ISLAND (Left) === */}
@@ -935,9 +950,9 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                     color="#1a1a1a"
                     anchorX="center"
                     anchorY="middle"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                 >
-                    2025-NOW
+                    基本问题
                 </Text>
             </group>
 
@@ -958,9 +973,9 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                     color="#1a1a1a"
                     anchorX="center"
                     anchorY="middle"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                 >
-                    2023-NOW
+                    布局安排
                 </Text>
             </group>
         </group>
@@ -975,21 +990,21 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
 // Balloon configuration: size category, texture path, position offset
 // === EDYTUJ WYSOKOŚĆ TUTAJ (zmień wartość 'y' dla każdego balona) ===
 const BALLOON_CONFIG = [
-    // Large balloons (main skills) - front and center
-    { texture: '/textures/about/reactduzybalon.webp', paintedTexture: '/textures/about/reactduzybalon_painted.webp', label: 'React', size: 'large', x: -2.5, y: 2, z: 0.3, phase: 0 },
-    { texture: '/textures/about/threejsduzybalon.webp', paintedTexture: '/textures/about/threejsduzybalon_painted.webp', label: 'Three.js', size: 'large', x: 2.5, y: 2.5, z: 0.2, phase: 1.5 },
-    { texture: '/textures/about/GSAPduzybalon.webp', paintedTexture: '/textures/about/GSAPduzybalon_painted.webp', label: 'GSAP', size: 'large', x: 0, y: 3, z: 0.5, phase: 3 },
+    // Large balloons (main themes) - front and center
+    { texture: '/textures/about/balloon_mayuan_sketch.png', paintedTexture: '/textures/about/balloon_mayuan_painted.png', label: '马原', size: 'large', x: -2.5, y: 2, z: 0.3, phase: 0 },
+    { texture: '/textures/about/balloon_xisixiang_sketch.png', paintedTexture: '/textures/about/balloon_xisixiang_painted.png', label: '习思想', size: 'large', x: 2.5, y: 2.5, z: 0.2, phase: 1.5 },
+    { texture: '/textures/about/balloon_shigang_sketch.png', paintedTexture: '/textures/about/balloon_shigang_painted.png', label: '史纲', size: 'large', x: 0, y: 3, z: 0.5, phase: 3 },
 
     // Medium balloons - scattered around
-    { texture: '/textures/about/JSSREDNIBALON.webp', paintedTexture: '/textures/about/JSSREDNIBALON_painted.webp', label: 'JavaScript', size: 'medium', x: -4, y: 1, z: -0.3, phase: 0.8 },
-    { texture: '/textures/about/csssrednibalon.webp', paintedTexture: '/textures/about/csssrednibalon_painted.webp', label: 'CSS', size: 'medium', x: 4, y: 1.5, z: -0.2, phase: 2.2 },
-    { texture: '/textures/about/nextjssrednibalon.webp', paintedTexture: '/textures/about/nextjssrednibalon_painted.webp', label: 'Next.js', size: 'medium', x: 0, y: 0.5, z: -0.4, phase: 4 },
+    { texture: '/textures/about/balloon_maozhongte_sketch.png', paintedTexture: '/textures/about/balloon_maozhongte_painted.png', label: '毛中特', size: 'medium', x: -4, y: 1, z: -0.3, phase: 0.8 },
+    { texture: '/textures/about/balloon_sixiu_sketch.png', paintedTexture: '/textures/about/balloon_sixiu_painted.png', label: '思修法基', size: 'medium', x: 4, y: 1.5, z: -0.2, phase: 2.2 },
+    { texture: '/textures/about/balloon_xuanze_sketch.png', paintedTexture: '/textures/about/balloon_xuanze_painted.png', label: '选择题', size: 'medium', x: 0, y: 0.5, z: -0.4, phase: 4 },
 
     // Small balloons - background accents
-    { texture: '/textures/about/htmlmalybalon.webp', paintedTexture: '/textures/about/htmlmalybalon_painted.webp', label: 'HTML', size: 'small', x: -5.5, y: 2.5, z: -0.8, phase: 1.2 },
-    { texture: '/textures/about/gitmalybalon.webp', paintedTexture: '/textures/about/gitmalybalon_painted.webp', label: 'Git', size: 'small', x: 5.5, y: 3, z: -0.7, phase: 2.8 },
-    { texture: '/textures/about/figmamalybalon.webp', paintedTexture: '/textures/about/figmamalybalon_painted.webp', label: 'Figma', size: 'small', x: -3, y: 4.5, z: -0.5, phase: 3.5 },
-    { texture: '/textures/about/firebasemalybalon.webp', paintedTexture: '/textures/about/firebasemalybalon_painted.webp', label: 'Firebase', size: 'small', x: 3.5, y: 4, z: -0.6, phase: 4.5 },
+    { texture: '/textures/about/balloon_fenxi_sketch.png', paintedTexture: '/textures/about/balloon_fenxi_painted.png', label: '分析题', size: 'small', x: -5.5, y: 2.5, z: -0.8, phase: 1.2 },
+    { texture: '/textures/about/balloon_shizheng_sketch.png', paintedTexture: '/textures/about/balloon_shizheng_painted.png', label: '时政', size: 'small', x: 5.5, y: 3, z: -0.7, phase: 2.8 },
+    { texture: '/textures/about/balloon_gaopin_sketch.png', paintedTexture: '/textures/about/balloon_gaopin_painted.png', label: '高频', size: 'small', x: -3, y: 4.5, z: -0.5, phase: 3.5 },
+    { texture: '/textures/about/balloon_bibei_sketch.png', paintedTexture: '/textures/about/balloon_bibei_painted.png', label: '必背', size: 'small', x: 3.5, y: 4, z: -0.6, phase: 4.5 },
 ];
 
 // Size multipliers for balloon categories
@@ -1037,14 +1052,11 @@ const SkillBalloon = ({ config, revealFactorRef, spreadFactorRef, timeRef }) => 
 
     // LEGACY FIX: Use original aspect ratios from BALLOON_CONFIG or hardcoded for categories
     const legacyAspects = {
-        'reactduzybalon.webp': 736 / 1447,
-        'threejsduzybalon.webp': 1141 / 1964,
-        'GSAPduzybalon.webp': 1.0, // GSAP balloon is square
-        'default_small_medium': 631 / 1482 // Common ratio for others
+        'default': 512 / 768
     };
     
     const filename = config.texture.split('/').pop();
-    const aspect = legacyAspects[filename] || legacyAspects['default_small_medium'];
+    const aspect = legacyAspects[filename] || legacyAspects['default'];
     const baseHeight = SIZE_MULTIPLIERS[config.size];
 
     const outerGroupRef = useRef();
@@ -1308,7 +1320,7 @@ const SkillBalloon = ({ config, revealFactorRef, spreadFactorRef, timeRef }) => 
                         color="#1a1a1a"
                         anchorX="center"
                         anchorY="middle"
-                        font="/fonts/RubikScribble-Regular.ttf"
+                        font="/fonts/simhei-subset.ttf"
                         fillOpacity={0}
                         outlineWidth={0.02}
                         outlineColor="#fff"
@@ -1397,9 +1409,9 @@ const SkillsMilestone = ({ z, scrollProgressRef }) => {
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/RubikScribble-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                SKILLS
+                考 频 分 布
             </Text>
 
             {/* Subtitle */}
@@ -1409,9 +1421,9 @@ const SkillsMilestone = ({ z, scrollProgressRef }) => {
                 color="#555555"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Regular.ttf"
+                font="/fonts/simhei-subset.ttf"
             >
-                Technologies I love working with
+                哪些章节最容易出题
             </Text>
 
             {/* === FLOATING BALLOONS === */}

@@ -19,35 +19,35 @@ const LOOP_HEIGHT = LOOP_TOP - LOOP_BOTTOM;
 
 // Symbol definitions with their visual weight
 const SYMBOLS = [
-    // Code brackets - larger
-    { text: '{/}', size: 0.8, weight: 2 },
-    { text: '</>', size: 0.8, weight: 2 },
-    { text: '{ }', size: 0.7, weight: 1 },
-    { text: '{ • }', size: 0.7, weight: 1 },
+    // 书名号 & 核心符号
+    { text: '《》', size: 0.8, weight: 2 },
+    { text: '【】', size: 0.8, weight: 2 },
+    { text: '★', size: 0.7, weight: 2 },
+    { text: '「」', size: 0.7, weight: 1 },
 
-    // Operators & punctuation - medium
-    { text: ';', size: 0.5, weight: 3 },
-    { text: '::', size: 0.4, weight: 2 },
-    { text: '=>', size: 0.5, weight: 2 },
-    { text: '//', size: 0.5, weight: 2 },
-    { text: '&&', size: 0.4, weight: 1 },
+    // 章节标记 & 标点
+    { text: '§', size: 0.5, weight: 3 },
+    { text: '※', size: 0.45, weight: 2 },
+    { text: '¶', size: 0.5, weight: 1 },
+    { text: '、', size: 0.4, weight: 2 },
+    { text: '；', size: 0.4, weight: 1 },
 
-    // Binary - small scattered
-    { text: '0', size: 0.3, weight: 4 },
+    // 数字（页码感）
     { text: '1', size: 0.3, weight: 4 },
-    { text: '01', size: 0.35, weight: 3 },
-    { text: '0101', size: 0.4, weight: 2 },
-    { text: '00', size: 0.35, weight: 2 },
+    { text: '2', size: 0.3, weight: 4 },
+    { text: '①', size: 0.35, weight: 3 },
+    { text: '②', size: 0.4, weight: 2 },
+    { text: '③', size: 0.35, weight: 2 },
 
-    // Arrows & misc
+    // 箭头 & 几何
     { text: '↑', size: 0.4, weight: 2 },
     { text: '→', size: 0.4, weight: 1 },
     { text: '←', size: 0.4, weight: 1 },
-    { text: '×', size: 0.3, weight: 2 },
-    { text: '•', size: 0.25, weight: 3 },
+    { text: '◆', size: 0.3, weight: 2 },
+    { text: '·', size: 0.25, weight: 3 },
     { text: '○', size: 0.3, weight: 2 },
 
-    // Pixel-like patterns
+    // 装饰点阵
     { text: '▪▪\n▪', size: 0.25, weight: 2 },
     { text: '▪ ▪\n ▪', size: 0.25, weight: 1 },
     { text: '▪▪▪', size: 0.2, weight: 2 },

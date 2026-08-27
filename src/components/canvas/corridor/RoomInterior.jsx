@@ -20,10 +20,19 @@ const ROOM_CONFIG = {
 };
 
 const SUBTITLES = {
-    'THE GALLERY': 'Explore my creative projects',
-    'THE STUDIO': 'Watch behind the scenes',
-    'DEV DIARY': 'My development journey',
-    "LET'S CONNECT": 'Get in touch with me'
+    'THE GALLERY': '马克思主义基本原理 · 9 章 · 每年必现',
+    'THE STUDIO': '毛中特 · 9 章 · 马克思主义中国化',
+    'THE ABOUT': '习思想 · 18 章 · 新时代理论体系',
+    "LET'S CONNECT": '思修法基 · 7 章 · 人生·道德·法治',
+    'DEV DIARY': 'My development journey'
+};
+
+// 房间内大标题中文映射
+const ROOM_CN_TITLES = {
+    'THE GALLERY': '马克思主义基本原理',
+    'THE STUDIO': '毛泽东思想和中国特色社会主义理论体系概论',
+    'THE ABOUT': '习近平新时代中国特色社会主义思想',
+    "LET'S CONNECT": '思想道德与法治',
 };
 
 // Naturalny kafelek listwy: 1582x94px przy wysokości 0.15 → ~2.524 units szerokości
@@ -277,8 +286,9 @@ const RoomInterior = memo(({ label, showRoom, onReady, isExiting }) => {
                                 anchorY="middle"
                                 maxWidth={roomWidth * 0.8}
                                 textAlign="center"
+                                font="/fonts/simhei-subset.ttf"
                             >
-                                {label}
+                                {ROOM_CN_TITLES[label] || label}
                             </Text>
 
                             {/* Subtitle */}
@@ -290,6 +300,7 @@ const RoomInterior = memo(({ label, showRoom, onReady, isExiting }) => {
                                 anchorY="middle"
                                 maxWidth={roomWidth * 0.7}
                                 textAlign="center"
+                                font="/fonts/simhei-subset.ttf"
                             >
                                 {SUBTITLES[label] || ''}
                             </Text>

@@ -1,8 +1,9 @@
 {
-  "name": "portfolio-itom",
+  "name": "kaoyan-zhengzhi-3d",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "考研政治3D知识世界 — 马原/毛中特/习思想/思修法基四房间 + 史纲时间轴走廊",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -40,5 +41,9 @@
     "sharp": "^0.34.5",
     "vite": "^7.2.4",
     "vite-plugin-compression": "^0.5.1"
+  },
+  "allowScripts": {
+    "esbuild@0.27.2": true,
+    "sharp@0.34.5": true
   }
 }

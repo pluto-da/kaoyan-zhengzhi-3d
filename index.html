@@ -1,58 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
-  <link rel="preconnect" href="https://kv5wjjmj.apicdn.sanity.io" crossorigin />
   <link rel="preload" as="image" href="/textures/paper-texture.webp" type="image/webp" fetchpriority="high" crossorigin="anonymous">
   <link rel="icon" type="image/png" href="/favico.png" />
   <link rel="apple-touch-icon" href="/favico.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="hJ5aPZ41MvWj8wpgBteG7wWeOaKQk0TrSWgfKrTTE50" />
-  <meta name="google-site-verification" content="xHP9fuTfxKEJaZ1C9d_MYu1jQhgAsHJLSol3j5f55yA" />
   <meta name="theme-color" content="#fafafa" />
 
   <!-- SEO Meta Tags -->
-  <title>Tomasz "ITom" Szmajda | Creative 3D Portfolio</title>
+  <title>考研政治 · 3D 知识世界</title>
   <meta name="description"
-    content="Interactive 3D developer portfolio by Tomasz 'ITom' Szmajda. Explore WebGL experiments, React projects & GSAP animations in a hand-drawn gallery." />
-  <meta name="author" content="Tomasz Szmajda" />
+    content="考研政治 3D 知识可视化：马原、毛中特、习思想、史纲、思修法基五科章节，走进手绘风 3D 走廊复习。基于徐涛 2027 核心考案 OCR 笔记，462 个考点 + 徐涛题眼 + 易错点。" />
+  <meta name="author" content="研库" />
   <meta name="keywords"
-    content="Tomasz Szmajda, ITom, Tomasz ITom Szmajda, web developer portfolio, 3D web development, Three.js developer, React portfolio, frontend engineer" />
+    content="考研政治, 马原, 毛中特, 习思想, 史纲, 思修法基, 3D知识可视化, 徐涛核心考案, 考研复习" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://itomdev.com/" />
 
-  <!-- Open Graph (Facebook, LinkedIn, Discord) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Tomasz &quot;ITom&quot; Szmajda | Creative 3D Portfolio" />
+  <meta property="og:title" content="考研政治 · 3D 知识世界" />
   <meta property="og:description"
-    content="Interactive 3D developer portfolio by Tomasz 'ITom' Szmajda. Explore WebGL experiments, React projects & GSAP animations in a hand-drawn gallery." />
-  <meta property="og:url" content="https://itomdev.com/" />
-  <meta property="og:site_name" content="Tomasz Szmajda Portfolio" />
-  <meta property="og:image" content="https://itomdev.com/og-image.webp" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_US" />
+    content="考研政治 3D 知识可视化：五科章节走廊 + 房间，462 考点、徐涛题眼、易错点，基于徐涛 2027 核心考案。" />
+  <meta property="og:site_name" content="考研政治知识世界" />
+  <meta property="og:locale" content="zh_CN" />
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tomasz &quot;ITom&quot; Szmajda | Creative 3D Portfolio" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="考研政治 · 3D 知识世界" />
   <meta name="twitter:description"
-    content="Interactive 3D developer portfolio by Tomasz 'ITom' Szmajda. Explore WebGL experiments, React projects & GSAP animations in a hand-drawn gallery." />
-  <meta name="twitter:image" content="https://itomdev.com/og-image.webp" />
+    content="考研政治 3D 知识可视化：马原/毛中特/习思想/史纲/思修法基五科章节走廊复习。" />
 
-  <!-- Google Fonts: Hand-drawn + Primary -->
+  <!-- Google Fonts: Hand-drawn + Primary (离线时自动回退系统字体) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Gloria+Hallelujah&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Preload bazowych tekstur używanych w preloaderze -->
-
   <style>
-    /* Absolute SEO text hiding - completely accessible to Googlebot, invisible to users */
+    /* SEO 隐藏文本层：对爬虫可见，对用户不可见 */
     .sr-only-seo {
       position: absolute !important;
       width: 1px !important;
@@ -68,150 +56,84 @@
 </head>
 
 <body>
-  <!-- SEO Fallback for WebGL SPAs (2026 Crawl Optimization) -->
+  <!-- 考研政治知识世界 · SEO 内容层 -->
   <div id="seo-content" class="sr-only-seo">
     <header>
-      <h1>Tomasz Szmajda (ITom Dev) | Creative 3D Web Developer & Frontend Engineer Portfolio</h1>
-      <p>Interactive, WebGL-powered portfolio showcasing the intersection of modern frontend engineering and immersive 3D art.</p>
+      <h1>考研政治 · 3D 知识世界 | 马原 毛中特 习思想 史纲 思修法基</h1>
+      <p>基于徐涛 2027 核心考案 OCR 笔记构建的交互式 3D 复习空间：五科章节、462 个考点、徐涛题眼与易错点。</p>
     </header>
-    
-    <nav aria-label="Main Navigation">
+
+    <nav aria-label="主导航">
       <ul>
-        <li><a href="/">Home (The Corridor)</a></li>
-        <li><a href="/gallery">Gallery & Projects</a></li>
-        <li><a href="/about">About Me (The Studio)</a></li>
-        <li><a href="/contact">Contact & Socials</a></li>
+        <li><a href="/">走廊（史纲时间轴）</a></li>
+        <li><a href="/gallery">马原 · 概念画廊</a></li>
+        <li><a href="/studio">毛中特 · 理论工作室</a></li>
+        <li><a href="/about">习思想 · 天空之城</a></li>
+        <li><a href="/contact">思修法基 · 修身海岸</a></li>
       </ul>
     </nav>
-    
+
     <main>
-      <article id="home-corridor">
-        <header>
-          <h2>Experience the 3D Corridor: A Journey Through Code and Art</h2>
-        </header>
-        <section>
-          <h3>Welcome to the ITom Dev Digital Universe</h3>
-          <p>
-            Welcome to the interactive 3D portfolio of <strong>Tomasz Szmajda</strong>, widely recognized in the digital space as <strong>ITom</strong> or <strong>ITom Dev</strong>. 
-            If you are searching for an innovative Web Developer, a passionate Frontend Engineer, or a digital artist who uses code as his brush, you have arrived at the perfect destination. 
-            This website is not just a standard resume; it is an immersive, fully interactive WebGL experience built entirely from scratch. 
-            When you enter this portfolio, you find yourself in a carefully hand-drawn 3D corridor. Every texture, every frame, and every interactive element was custom-crafted to demonstrate what is possible when modern web technologies meet unbridled creativity.
-          </p>
-          <p>
-            My goal as a Creative Developer is to bridge the gap between static web pages and cinematic, game-like experiences running natively in the browser. 
-            By utilizing powerful tools like React Three Fiber, Three.js, and GSAP, I ensure that this 3D corridor runs smoothly across devices, maintaining high performance without sacrificing visual fidelity. 
-            The corridor serves as the central hub, offering doors that lead to different aspects of my professional life: my projects, my biography, and my contact information. 
-            Enjoy seamless transitions, detailed texturing, and a unique interface that breaks the mold of traditional corporate portfolios.
-          </p>
-        </section>
-      </article>
-
-      <article id="about-me">
-        <header>
-          <h2>About Tomasz "ITom" Szmajda: The Engineer Behind the Screen</h2>
-        </header>
-        <section>
-          <h3>My Developer Journey</h3>
-          <p>
-            My name is <strong>Tomasz Szmajda</strong> (ITom), and I am a dedicated Frontend Developer with a profound specialization in interactive web experiences. 
-            My journey in software engineering began with a fascination for how logic and aesthetics intertwine. Over the years, I have honed my skills not just in building functional websites, but in engineering products that leave a lasting impression on the user. 
-            I believe that the web of 2026 and beyond demands more than just responsive design; it demands motion, depth, and interactivity.
-          </p>
-        </section>
-        <section>
-          <h3>Core Technical Skills & Stack</h3>
-          <p>
-            As a modern web developer, a robust and versatile technology stack is crucial. My tech stack is meticulously chosen to deliver high performance, scalability, and maintainability.
-          </p>
-          <ul>
-            <li><strong>Core Fundamentals:</strong> Advanced JavaScript (ES6+), TypeScript, HTML5, semantic markup, and modern CSS architecture including SCSS, CSS Modules, and Tailwind CSS.</li>
-            <li><strong>Frameworks & Ecosystems:</strong> Deep expertise in <strong>React.js</strong> and <strong>Next.js</strong> for building lightning-fast, SEO-friendly web applications. I leverage the React ecosystem for state management, routing, and complex UI logic.</li>
-            <li><strong>3D Graphics & WebGL:</strong> My signature skill lies in 3D visualization using <strong>Three.js</strong> and <strong>React Three Fiber (R3F)</strong>. I create custom shaders, optimize complex geometries, and manage heavy 3D assets to ensure 60fps performance right in the browser.</li>
-            <li><strong>Animation:</strong> Mastery of <strong>GSAP (GreenSock Animation Platform)</strong> and Framer Motion to choreograph intricate, physics-based UI animations and scroll-linked experiences.</li>
-            <li><strong>Backend & Cloud:</strong> Experience integrating backend services using Node.js, Express, Firebase, and Supabase. I deploy predominantly on platforms like Vercel and Cloudflare Pages.</li>
-            <li><strong>Design Tooling:</strong> Proficient in bridging the gap between design and code using Figma, Adobe Photoshop, and Blender for 3D asset preparation.</li>
-          </ul>
-        </section>
-      </article>
-
-      <article id="gallery-projects">
-        <header>
-          <h2>The Gallery: Selected Works and Case Studies</h2>
-        </header>
+      <article id="corridor">
+        <h2>走廊：史纲时间轴 · 从 1840 到新时代</h2>
         <p>
-          In the 3D gallery room, you can walk through an exhibition of my most significant commercial and personal projects. Here is a detailed breakdown of the work created by Tomasz Szmajda.
+          走进手绘风 3D 走廊，沿着中国近代史的时间轴前进：从鸦片战争后的民族危机，
+          到辛亥革命、中国共产党成立、抗日战争、新中国成立、改革开放，直至中国特色社会主义进入新时代。
+          走廊四扇门分别通向马原、毛中特、习思想、思修法基四个复习房间。
         </p>
-        
-        <section>
-          <h3>MoneTune - Full-Stack Financial Dashboard</h3>
-          <p>
-            <strong>MoneTune</strong> is an expansive, full-stack web application born out of the necessity for better personal finance tracking and management. 
-            Built with a modern React frontend and a secure, scalable backend architecture, MoneTune helps users visualize their spending habits, track recurring subscriptions, and set dynamic budgeting goals. 
-            The UI features complex data visualization charts, real-time updates, and an intuitive dashboard that makes financial planning completely frictionless. 
-            Developing MoneTune challenged me to architect robust relational databases, handle sensitive user authentication securely, and optimize massive data-sets for instantaneous frontend rendering.
-          </p>
-        </section>
-
-        <section>
-          <h3>TimberKitty - Interactive Web Experience</h3>
-          <p>
-            <strong>TimberKitty</strong> represents my playful, creative side as a frontend engineer. This project is a highly interactive, animated web experience that utilizes modern CSS Grid, flexbox, and advanced logic to create a game-like interface within the DOM. 
-            It focuses heavily on micro-interactions—how buttons react, how items transition into view, and how the user feels while navigating the application. 
-            TimberKitty demonstrates my ability to take a whimsical design concept and bring it to life with precision, ensuring cross-browser compatibility and flawlessly smooth animations using custom hooks and GSAP. 
-            It stands as a testament to building web apps that are as fun to use as they are technically sound.
-          </p>
-        </section>
-
-        <section>
-          <h3>Young Multi Concept - 3D Collaboration</h3>
-          <p>
-            The <strong>Young Multi</strong> project is a cutting-edge web development initiative that heavily incorporates WebGL and Three.js capabilities. 
-            Designed as a promotional/editorial concept, this site uses scroll-based storytelling mapped to a 3D environment. 
-            As the user scrolls, the camera navigates through a custom 3D scene, dynamically triggering HTML overlays and React components. 
-            This project required advanced optimization techniques, including GLTF model compression, texture atlasing, and custom shader materials to ensure the experience remained fluid even on mid-tier mobile devices. 
-            It is a perfect example of what the modern web can achieve visually.
-          </p>
-        </section>
-
-        <section>
-          <h3>Open Source & Continuous Learning</h3>
-          <p>
-            Beyond these highlighted case studies, I am continuously experimenting with new frontend paradigms. Whether it's building 3D configurators, testing WebGPU performance, or contributing to various UI libraries, my code is always evolving. 
-            You can deep dive into my repositories, explore my coding style, and review my open-source contributions by visiting my official <a href="https://github.com/ITomPoland" target="_blank" rel="noopener noreferrer">GitHub profile</a>.
-          </p>
-        </section>
       </article>
 
-      <article id="contact-room">
-        <header>
-          <h2>Let's Build Something Extraordinary: Contact ITom</h2>
-        </header>
-        <section>
-          <h3>Freelance, Collaboration, and Career Opportunities</h3>
-          <p>
-            Are you looking looking to hire a passionate React developer, or perhaps seeking a specialist capable of bringing a 3D WebGL vision to life? 
-            Tomasz "ITom" Szmajda is always open to discussing new freelance projects, remote collaborations, contract work, and full-time opportunities with innovative companies. 
-            I pride myself on excellent communication, meeting strict deadlines, and delivering code that is not only functional but architecturally elegant. 
-            If your goal is to build a high-performance web application, an award-winning marketing site, or a creative digital campaign, I would love to hear from you.
-          </p>
-        </section>
-        
-        <aside>
-          <h3>Connect with Tomasz Szmajda</h3>
-          <p>
-            Ready to start a conversation? You can find detailed contact forms and direct links hidden within the interactive 3D portfolio's Contact Room, or you can reach out through my professional networks right now. 
-            I actively share insights, project updates, and tech discussions on my <a href="https://www.linkedin.com/in/tomasz-szmajda-259337305/" target="_blank" rel="noopener noreferrer">LinkedIn profile</a>. 
-            For a more visual look at my work and my daily life as a creative developer, feel free to follow my journey on <a href="https://www.instagram.com/itom.dev/" target="_blank" rel="noopener noreferrer">Instagram (@itom.dev)</a>. 
-            Let us collaborate and push the boundaries of modern web development together!
-          </p>
-        </aside>
+      <article id="mayuan">
+        <h2>马原 · 概念画廊</h2>
+        <p>
+          马克思主义基本原理：导论 + 8 章，84 个考点。
+          辩证唯物论、唯物辩证法、认识论、唯物史观、资本主义的本质与发展、社会主义与共产主义。
+          每个概念以画卡形式挂在墙上，翻转可见考点、页码与考频。
+        </p>
+      </article>
+
+      <article id="maozhongte">
+        <h2>毛中特 · 理论工作室</h2>
+        <p>
+          毛泽东思想和中国特色社会主义理论体系概论：导论 + 8 章，45 个考点。
+          毛泽东思想、新民主主义革命理论、社会主义改造与建设、中国特色社会主义理论体系的形成发展。
+        </p>
+      </article>
+
+      <article id="xisixiang">
+        <h2>习思想 · 天空之城</h2>
+        <p>
+          习近平新时代中国特色社会主义思想：导论 + 17 章，156 个考点，内容最多的一科。
+          按"基本问题 — 布局安排 — 内外条件"三大板块组织，无限天空中漂浮考频气球与学习路径里程碑。
+        </p>
+      </article>
+
+      <article id="sixiu">
+        <h2>思修法基 · 修身海岸</h2>
+        <p>
+          思想道德与法治：绪论 + 6 章，55 个考点。
+          思想篇（人生观/理想信念/中国精神）、道德篇（价值准则/道德品格）、法治篇（法治思想/法治素养）三层结构。
+        </p>
+      </article>
+
+      <article id="method">
+        <h2>复习方法：三层钻取</h2>
+        <ul>
+          <li>第一层：章节索引 —— 章名、页码、考频、优先级</li>
+          <li>第二层：考点清单 —— 每个考点的名称、题型标记（单选/多选）、印刷页码</li>
+          <li>第三层：徐涛题眼（近十年命题热区）与易错点（易混对比与陷阱）</li>
+        </ul>
+        <p>
+          所有数据提取自徐涛 2027 核心考案 OCR 笔记（研库 Wiki），共 462 个考点、162 条题眼、77 条易错点。
+          来源标注保留印刷页码，可回查原书。
+        </p>
       </article>
     </main>
   </div>
 
-  <!-- Noscript strict fallback -->
+  <!-- Noscript 回退 -->
   <noscript>
-    Plese enable JavaScript to experience the interactive 3D portfolio of Tomasz Szmajda (ITom Dev).
+    请启用 JavaScript 以体验考研政治 3D 知识世界。
   </noscript>
 
   <div id="root"></div>

@@ -2,38 +2,36 @@ import { useEffect, useRef } from 'react';
 import { useScene } from '../context/SceneContext';
 
 /**
- * useDocumentMeta — Dynamic Meta Tags & Virtual Routing (History API)
- * 
- * Updates the browser URL, page title, and meta description
- * whenever the user enters/exits a 3D room. Also handles the
- * browser back/forward buttons for seamless navigation.
+ * useDocumentMeta — 动态 Meta 与虚拟路由 (History API)
+ *
+ * 用户进/出 3D 房间时更新 URL、标题、描述，并处理浏览器前进/后退。
  */
 
 const ROOM_META = {
     null: {
         path: '/',
-        title: 'ITom — Creative 3D Portfolio',
-        description: 'Interactive 3D developer portfolio by Tomasz "ITom" Szmajda. Explore WebGL experiments, React projects & GSAP animations in a hand-drawn gallery.',
+        title: '考研政治 · 3D 知识世界',
+        description: '考研政治 3D 知识可视化：马原、毛中特、习思想、史纲、思修法基五科章节走廊复习，462 考点 + 徐涛题眼 + 易错点。',
     },
     about: {
         path: '/about',
-        title: 'About Me — ITom Portfolio',
-        description: 'Learn about Tomasz "ITom" Szmajda — a creative frontend developer specializing in 3D web experiences, React, Three.js, and GSAP animations.',
+        title: '习思想 · 天空之城 — 考研政治知识世界',
+        description: '习近平新时代中国特色社会主义思想：导论 + 17 章，156 考点，按基本问题/布局安排/内外条件三板块组织。',
     },
     gallery: {
         path: '/gallery',
-        title: 'Gallery & Projects — ITom Portfolio',
-        description: 'Browse the interactive 3D gallery of web development projects by ITom. Each project is displayed as a hand-drawn card you can flip and explore.',
+        title: '马原 · 概念画廊 — 考研政治知识世界',
+        description: '马克思主义基本原理：导论 + 8 章，84 考点。画卡式复习，翻转查看考点、页码与考频。',
     },
     studio: {
         path: '/studio',
-        title: 'The Studio — ITom Portfolio',
-        description: 'Explore ITom\'s content studio — YouTube videos, blog posts, and TikToks displayed on floating monitors in an immersive 3D space.',
+        title: '毛中特 · 理论工作室 — 考研政治知识世界',
+        description: '毛泽东思想和中国特色社会主义理论体系概论：导论 + 8 章，45 考点，显示器塔式浏览。',
     },
     contact: {
         path: '/contact',
-        title: 'Contact — ITom Portfolio',
-        description: 'Get in touch with Tomasz "ITom" Szmajda. Find social media links and contact information in this interactive 3D contact room.',
+        title: '思修法基 · 修身海岸 — 考研政治知识世界',
+        description: '思想道德与法治：绪论 + 6 章，55 考点。思想篇/道德篇/法治篇三层结构。',
     },
 };
 
@@ -81,15 +79,6 @@ export function useDocumentMeta() {
         const ogDesc = document.querySelector('meta[property="og:description"]');
         if (ogDesc) ogDesc.setAttribute('content', meta.description);
 
-        const ogUrl = document.querySelector('meta[property="og:url"]');
-        if (ogUrl) ogUrl.setAttribute('content', `https://itomdev.com${meta.path}`);
-
-        // Update canonical link to ensure virtual routes are correctly indexable as separate pages
-        const canonicalTag = document.querySelector('link[rel="canonical"]');
-        if (canonicalTag) {
-            canonicalTag.setAttribute('href', `https://itomdev.com${meta.path}`);
-        }
-
         // Push to browser history (only if not handling a popstate event and room actually changed)
         if (!isHandlingPopState.current && lastPushedRoom.current !== currentRoom) {
             // Use replaceState for the very first load, pushState for subsequent navigations
@@ -113,8 +102,6 @@ export function useDocumentMeta() {
 
             if (targetRoom === null) {
                 // Going back to corridor — we don't teleport, just need to trigger exit
-                // The SceneContext requestExit will handle the animation
-                // For now, we update meta immediately
                 const meta = ROOM_META['null'];
                 document.title = meta.title;
             } else if (hasEntered) {

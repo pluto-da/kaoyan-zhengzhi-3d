@@ -4,8 +4,9 @@ import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Local fonts for sketch-style typography (TTF format required by troika)
-const RUBIK_SCRIBBLE_URL = '/fonts/RubikScribble-Regular.ttf';
-const CABIN_SKETCH_URL = '/fonts/CabinSketch-Regular.ttf';
+// 中文字体 (黑体, troika 需要 TTF) — 英文手写体不含汉字字形
+const RUBIK_SCRIBBLE_URL = '/fonts/simhei-subset.ttf';
+const CABIN_SKETCH_URL = '/fonts/simhei-subset.ttf';
 
 // Global flag - draw animation only happens ONCE per page load
 let hasPlayedDrawAnimation = false;
@@ -54,20 +55,20 @@ const HeroText = ({ position = [0, 0.3, 0] }) => {
     // Pre-allocate Vector3 to avoid per-frame garbage collection
     const worldPosVec = useRef(new THREE.Vector3());
 
-    // Letter positions for ITOM split effect
+    // Letter positions for 考研政治 split effect (4字)
+    // fontSize=0.9 → 单字宽约0.9, 字距需 ≥1.0 才不重叠
     const letters = useMemo(() => [
-        { char: 'I', baseX: -0.95, splitDir: -1.6, delay: 0 },
-        { char: 'T', baseX: -0.43, splitDir: -0.6, delay: 0 },
-        { char: 'O', baseX: 0.23, splitDir: 0.6, delay: 0 },
-        { char: 'M', baseX: 0.95, splitDir: 1.8, delay: 0 },
+        { char: '考', baseX: -1.55, splitDir: -1.6, delay: 0 },
+        { char: '研', baseX: -0.52, splitDir: -0.6, delay: 0 },
+        { char: '政', baseX: 0.52, splitDir: 0.6, delay: 0 },
+        { char: '治', baseX: 1.55, splitDir: 1.8, delay: 0 },
     ], []);
 
     // Tagline words for split effect
     const taglineWords = useMemo(() => [
-        { text: '<', baseX: -0.85, splitDir: -1.5, delay: 0 },
-        { text: 'creative', baseX: -0.4, splitDir: -0.8, delay: 0 },
-        { text: 'developer', baseX: 0.4, splitDir: 0.8, delay: 0 },
-        { text: '/>', baseX: 0.85, splitDir: 1.5, delay: 0 },
+        { text: '徐涛', baseX: -1.05, splitDir: -1.2, delay: 0 },
+        { text: '核心考案', baseX: 0, splitDir: 0, delay: 0 },
+        { text: '2027', baseX: 1.05, splitDir: 1.2, delay: 0 },
     ], []);
 
     // Animation loop

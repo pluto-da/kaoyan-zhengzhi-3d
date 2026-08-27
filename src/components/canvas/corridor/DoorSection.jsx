@@ -47,6 +47,14 @@ const DOOR_TEXTURES = {
     "LET'S CONNECT": '/textures/corridor/doors/drzwikontakt.webp',
 };
 
+// 五科中文字牌映射 (label 键保持不变, 仅显示中文)
+const DOOR_CN_NAMES = {
+    'THE GALLERY': '马原',
+    'THE STUDIO': '毛中特',
+    'THE ABOUT': '习思想',
+    "LET'S CONNECT": '思修法基',
+};
+
 // Painted (colored) variants for brush-stroke reveal on hover
 const DOOR_PAINTED_TEXTURES = {
     'THE GALLERY': '/textures/corridor/doors/drzwiprojekty_painted.webp',
@@ -1068,79 +1076,17 @@ const DoorSection = ({
                             />
                         </mesh>
 
-                        {/* === DYNAMIC TEXT FOR SIGNS === */}
-                        {label === 'THE GALLERY' && (
-                            <group position={[0, 0, 0.01]}>
-                                <Text
-                                    font="/fonts/CabinSketch-Bold.ttf"
-                                    fontSize={0.25}
-                                    color="#111111"
-                                    anchorX="center"
-                                    anchorY="bottom"
-                                    position={[0, -0.02, 0]}
-                                >
-                                    THE
-                                </Text>
-                                <Text
-                                    font="/fonts/CabinSketch-Bold.ttf"
-                                    fontSize={0.25}
-                                    color="#111111"
-                                    anchorX="center"
-                                    anchorY="top"
-                                    position={[0, +0.02, 0]}
-                                >
-                                    GALLERY
-                                </Text>
-                            </group>
-                        )}
-                        {label === 'THE STUDIO' && (
-                            <group position={[0, 0, 0.01]}>
-                                <Text
-                                    font="/fonts/CabinSketch-Bold.ttf"
-                                    fontSize={0.25}
-                                    color="#111111"
-                                    anchorX="center"
-                                    anchorY="bottom"
-                                    position={[0, -0.02, 0]}
-                                >
-                                    THE
-                                </Text>
-                                <Text
-                                    font="/fonts/CabinSketch-Bold.ttf"
-                                    fontSize={0.25}
-                                    color="#111111"
-                                    anchorX="center"
-                                    anchorY="top"
-                                    position={[0, +0.03, 0]}
-                                >
-                                    STUDIO
-                                </Text>
-                            </group>
-                        )}
-                        {label === 'THE ABOUT' && (
-                            <Text
-                                font="/fonts/CabinSketch-Bold.ttf"
-                                fontSize={0.30}
-                                color="#111111"
-                                anchorX="center"
-                                anchorY="middle"
-                                position={[0, 0, 0.01]}
-                            >
-                                ABOUT
-                            </Text>
-                        )}
-                        {label === "LET'S CONNECT" && (
-                            <Text
-                                font="/fonts/CabinSketch-Bold.ttf"
-                                fontSize={0.25}
-                                color="#111111"
-                                anchorX="center"
-                                anchorY="middle"
-                                position={[0, 0, 0.01]}
-                            >
-                                CONTACT
-                            </Text>
-                        )}
+                        {/* === DYNAMIC TEXT FOR SIGNS (五科中文字牌) === */}
+                        <Text
+                            font="/fonts/simhei-subset.ttf"
+                            fontSize={0.28}
+                            color="#111111"
+                            anchorX="center"
+                            anchorY="middle"
+                            position={[0, 0, 0.01]}
+                        >
+                            {DOOR_CN_NAMES[label] || label}
+                        </Text>
                     </group>
 
                     {/* === DOOR FRAME (textured) === */}

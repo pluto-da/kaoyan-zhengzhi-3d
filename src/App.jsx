@@ -13,14 +13,7 @@ import NavigationUI from './components/ui/NavigationUI';
 import GlobalOverlay from './components/ui/GlobalOverlay';
 import ScreenReaderOverlay from './components/ui/ScreenReaderOverlay';
 import { useDocumentMeta } from './hooks/useDocumentMeta';
-import posthog from 'posthog-js';
 import { loadSanityData } from './hooks/useSanityData';
-
-// Initialize PostHog
-posthog.init(import.meta.env.VITE_POSTHOG_KEY, {
-  api_host: import.meta.env.VITE_POSTHOG_HOST,
-  person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-});
 
 // Lazy load the heavy 3D experience
 const Experience = lazy(() => import('./components/canvas/Experience'));
@@ -74,8 +67,6 @@ if (isLowEnd) {
   filteredAll.forEach(path => useTexture.preload(path));
   filteredLoader.forEach(path => useLoader.preload(TextureLoader, path));
 }
-
-const FONT_URL = 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff';
 
 // Helper component to handle global audio enable on interaction
 const GlobalAudioEnabler = () => {

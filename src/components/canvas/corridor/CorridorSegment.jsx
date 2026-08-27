@@ -9,6 +9,7 @@ import Avatar from './Avatar';
 import HeroText from './HeroText';
 import Doodles from './Doodles';
 import CorridorDecorations from './CorridorDecorations';
+import ShigangTimeline from './ShigangTimeline';
 
 /**
  * CorridorSegment Component
@@ -122,11 +123,14 @@ const CorridorSegment = ({
                 <HeroText position={[0, -0.1, -0.5]} />
 
                 {/* Avatar - center */}
-                <Avatar position={[0, -0.61, -0.3]} />
+                <Avatar position={[2.3, -0.61, -0.3]} />
 
 
                 {/* Doodles around avatar */}
                 <Doodles />
+
+                {/* 史纲时间轴墙牌(左墙10时期) */}
+                <ShigangTimeline zOffset={zOffset} />
 
                 {/* Segment number (debug - can remove later) */}
                 <Text

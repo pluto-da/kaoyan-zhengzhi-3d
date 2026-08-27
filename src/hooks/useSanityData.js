@@ -4,9 +4,9 @@ import { useTexture } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 
-// Flaga bezpieczeństwa: Jeśli użytkownik nie wpisał jeszcze Project ID, 
-// hooki zwrócą null, co pozwoli na załadowanie danych hardcodowanych (fallback).
-export const isSanityConfigured = sanityClient.config().projectId !== 'YOUR_PROJECT_ID';
+// 离线模式: 不再连接 Sanity 云端, 各房间使用本地 FALLBACK 数据
+// (原逻辑: projectId 非占位符时联网拉取; 知识库版本改为纯本地)
+export const isSanityConfigured = false;
 
 // Globalny cache dla danych z Sanity
 const cache = {

@@ -24,7 +24,6 @@ export const ENTRANCE_TEXTURES = [
     // Characters/Objects
     '/textures/entrance/cat_front_body.webp',
     '/textures/entrance/window_sketch.webp',
-    '/textures/entrance/avatar_window.webp',
     '/textures/entrance/tree_sketch.webp',
     '/textures/entrance/mouse_hanging.webp',
     '/textures/entrance/pot_with_duck.webp',
@@ -94,8 +93,6 @@ export const CORRIDOR_TEXTURES = [
 
 // Standard HTML Image assets (preloaded via new Image() in App.jsx)
 export const IMAGE_ASSETS = [
-    '/images/avatar-thinking.webp',
-    '/images/avatar-hero.webp',
     '/images/ink-splash.webp',
     '/images/map.webp',
     '/images/map_about_painted.webp',
@@ -179,8 +176,6 @@ export const CONTACT_TEXTURES = [
 
 // About Room textures (loaded via useLoader(TextureLoader))
 export const ABOUT_TEXTURES = [
-    // Avatar
-    '/textures/about/awatarnachmurce.webp',
     // Awards
     '/textures/about/SOTY.webp',
     '/textures/about/SOTY_painted.webp',
@@ -190,37 +185,31 @@ export const ABOUT_TEXTURES = [
     '/textures/about/SOTM_painted.webp',
     '/textures/about/button.webp',
     '/textures/about/button_painted.webp',
-    // Award images (for overlay)
-    '/textures/about/SOTDAYYOUNGMULTICSSWINNER.webp',
-    '/textures/about/SOTDAYYOUNGMULTIGSAP.webp',
-    '/textures/about/SOTDAYYOUNGMULTIORPETRON.webp',
-    '/textures/about/SOTDAYYOUNGMULTIDESIGNNOMINESS.webp',
-    // Journey islands
-    '/textures/about/uowyspa.webp',
-    '/textures/about/freelancewyspa.webp',
-    // Skill balloons - large
-    '/textures/about/reactduzybalon.webp',
-    '/textures/about/reactduzybalon_painted.webp',
-    '/textures/about/threejsduzybalon.webp',
-    '/textures/about/threejsduzybalon_painted.webp',
-    '/textures/about/GSAPduzybalon.webp',
-    '/textures/about/GSAPduzybalon_painted.webp',
-    // Skill balloons - medium
-    '/textures/about/JSSREDNIBALON.webp',
-    '/textures/about/JSSREDNIBALON_painted.webp',
-    '/textures/about/csssrednibalon.webp',
-    '/textures/about/csssrednibalon_painted.webp',
-    '/textures/about/nextjssrednibalon.webp',
-    '/textures/about/nextjssrednibalon_painted.webp',
-    // Skill balloons - small
-    '/textures/about/htmlmalybalon.webp',
-    '/textures/about/htmlmalybalon_painted.webp',
-    '/textures/about/gitmalybalon.webp',
-    '/textures/about/gitmalybalon_painted.webp',
-    '/textures/about/figmamalybalon.webp',
-    '/textures/about/figmamalybalon_painted.webp',
-    '/textures/about/firebasemalybalon.webp',
-    '/textures/about/firebasemalybalon_painted.webp',
+    // Award images (for overlay) - 已删除含人名/品牌的证书截图
+    // Journey islands (无文字浮岛)
+    '/textures/about/island_left.png',
+    '/textures/about/island_right.png',
+    // 政治主题气球
+    '/textures/about/balloon_mayuan_sketch.png',
+    '/textures/about/balloon_mayuan_painted.png',
+    '/textures/about/balloon_xisixiang_sketch.png',
+    '/textures/about/balloon_xisixiang_painted.png',
+    '/textures/about/balloon_shigang_sketch.png',
+    '/textures/about/balloon_shigang_painted.png',
+    '/textures/about/balloon_maozhongte_sketch.png',
+    '/textures/about/balloon_maozhongte_painted.png',
+    '/textures/about/balloon_sixiu_sketch.png',
+    '/textures/about/balloon_sixiu_painted.png',
+    '/textures/about/balloon_xuanze_sketch.png',
+    '/textures/about/balloon_xuanze_painted.png',
+    '/textures/about/balloon_fenxi_sketch.png',
+    '/textures/about/balloon_fenxi_painted.png',
+    '/textures/about/balloon_shizheng_sketch.png',
+    '/textures/about/balloon_shizheng_painted.png',
+    '/textures/about/balloon_gaopin_sketch.png',
+    '/textures/about/balloon_gaopin_painted.png',
+    '/textures/about/balloon_bibei_sketch.png',
+    '/textures/about/balloon_bibei_painted.png',
     // Clouds
     '/textures/clouds/1131c3eb-dfae-423f-924b-ff39d8ccd6dc.webp',
     '/textures/clouds/254b8ec8-d6f7-4275-956f-7bab65b2ce2d.webp',

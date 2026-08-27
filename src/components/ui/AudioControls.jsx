@@ -32,7 +32,7 @@ const AudioControls = () => {
                     step="0.01"
                     value={globalVolume}
                     onChange={(e) => setGlobalVolume(parseFloat(e.target.value))}
-                    aria-label="Volume"
+                    aria-label="音量"
                 />
             </div>
 

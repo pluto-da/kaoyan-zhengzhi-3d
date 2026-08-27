@@ -3,7 +3,6 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Text, PositionalAudio } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import MessagePaper from './MessagePaper';
 import SocialBarrel from './SocialBarrel';
 import { useScene } from '../../../../context/SceneContext';
 import GalleryClouds from '../Gallery/GalleryClouds';
@@ -93,10 +92,74 @@ const PHASE = {
 
 const ContactRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
     const { camera } = useThree();
-    const { isTeleporting } = useScene();
+    const { isTeleporting, openOverlay } = useScene();
     const { showTutorial, unlockAchievement, hidePopup } = useAchievements();
     const { globalVolume, isMuted } = useAudio();
     const effectiveVolume = isMuted ? 0 : AUDIO_SETTINGS.volume * globalVolume;
+
+    // ============================================
+    // 📚 思修法基章节数据 (来自 研库/Wiki/05 政治/05 思修法基/ 真实笔记)
+    // 点击桶 → 弹出该层章节索引 (certificate_grid 布局)
+    // ============================================
+    const SIXIU_OVERLAYS = {
+        xulun: {
+            id: 'sixiu-xulun',
+            layout: 'certificate_grid',
+            title: '绪论 · 担当复兴大任 成就时代新人',
+            items: [
+                { label: '绪论 · 担当复兴大任 成就时代新人', date: 'p.401–p.402 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            ],
+            platformConfig: { label: '绪论', color: '#1a1a1a', icon: '🌱' }
+        },
+        sixiang: {
+            id: 'sixiu-sixiang',
+            layout: 'certificate_grid',
+            title: '思想篇 · 第 01–03 章',
+            items: [
+                { label: '第 01 章 · 领悟人生真谛 把握人生方向', date: 'p.403–p.410 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+                { label: '第 02 章 · 追求远大理想 坚定崇高信念', date: 'p.411–p.417 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+                { label: '第 03 章 · 继承优良传统 弘扬中国精神', date: 'p.418–p.427 · 考频:高频', image: '/textures/about/SOTD.webp', url: null },
+            ],
+            platformConfig: { label: '思想篇', color: '#1a1a1a', icon: '💡' }
+        },
+        daode: {
+            id: 'sixiu-daode',
+            layout: 'certificate_grid',
+            title: '道德篇 · 第 04–05 章',
+            items: [
+                { label: '第 04 章 · 明确价值要求 践行价值准则', date: 'p.428–p.435 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+                { label: '第 05 章 · 遵守道德规范 锤炼道德品格', date: 'p.436–p.452 · 考频:高频', image: '/textures/about/SOTM.webp', url: null },
+            ],
+            platformConfig: { label: '道德篇', color: '#1a1a1a', icon: '🤝' }
+        },
+        fazhi: {
+            id: 'sixiu-fazhi',
+            layout: 'certificate_grid',
+            title: '法治篇 · 第 06 章',
+            items: [
+                { label: '第 06 章 · 学习法治思想 提升法治素养', date: 'p.453–p.474 · 考频:高频', image: '/textures/about/FEATURED.webp', url: null },
+            ],
+            platformConfig: { label: '法治篇', color: '#1a1a1a', icon: '⚖️' }
+        },
+        kaoyan: {
+            id: 'sixiu-kaoyan',
+            layout: 'certificate_grid',
+            title: '思修法基 · 备考总览',
+            items: [
+                { label: '思修法基 7 章总览', date: 'p.401–p.474 · 思想/道德/法治三层', image: '/textures/about/FEATURED.webp', url: null },
+                { label: '第 06 章 法治篇', date: '篇幅最长 p.453–p.474 · 重点章', image: '/textures/about/SOTM.webp', url: null },
+            ],
+            platformConfig: { label: '备考', color: '#1a1a1a', icon: '🎯' }
+        },
+    };
+
+    const handleSixiuBarrel = useCallback((key) => {
+        const overlay = SIXIU_OVERLAYS[key];
+        if (overlay) {
+            unlockAchievement('contact_choose');
+            openOverlay(overlay);
+        }
+    }, [openOverlay, unlockAchievement]);
 
     const audioRef = useRef();
     useEffect(() => {
@@ -247,45 +310,6 @@ const ContactRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
         }
     }, [hasSignaledReady.current, showRoom, camera]);
 
-    const handleMailSelect = () => {
-        // Awaryjne przekierowanie mailto:
-        window.location.href = 'mailto:tomszma12@gmail.com';
-
-        /* 
-        setShowSelection(false);
-
-        // Trigger the look down sequence
-        hasAnimatedDown.current = true;
-        hasExitTriggered.current = false;
-
-        // Capture landing rotation (usually 0,0,0)
-        targetRotX.current = camera.rotation.x;
-        targetRotY.current = camera.rotation.y;
-        targetRotZ.current = camera.rotation.z;
-
-        // Start sequence directly
-        setCurrentPhase(PHASE.LOOKING_DOWN);
-
-        // 1. SET X (Looking down)
-        targetRotX.current = CAMERA_SETTINGS.lookDownAngle;
-
-        // 2. SET Y (Turning)
-        if (CAMERA_SETTINGS.forceCenterY !== null) {
-            targetRotY.current = CAMERA_SETTINGS.forceCenterY;
-        }
-
-        // 3. SET Z (Tilt)
-        if (CAMERA_SETTINGS.forceStraightZ !== null) {
-            targetRotZ.current = CAMERA_SETTINGS.forceStraightZ;
-        }
-
-        // Phase transition
-        setTimeout(() => {
-            setCurrentPhase(PHASE.WRITING);
-        }, 1500);
-        */
-    };
-
     // Frame Loop
     useFrame((state, delta) => {
         // Update room origin for paint shader
@@ -397,54 +421,54 @@ const ContactRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
                 ))}
             </group>
 
-            {/* 🛢️ SOCIAL BARRELS (Floating in water) */}
-            {/* LINKEDIN */}
+            {/* 🛢️ 思修法基章节桶 (原社交桶改造) */}
+            {/* 绪论 */}
             <SocialBarrel
                 position={isMobile ? [-1.2, 0.5, -10] : [-3, 0.5, -10]}
                 rotation={[0, 0.2, 0]}
                 texturePath="/textures/contact/beczka.webp"
-                label="LINKEDIN"
-                onClick={() => window.open('https://www.linkedin.com/in/tomasz-szmajda-259337305/', '_blank')}
+                label="绪论"
+                onClick={() => handleSixiuBarrel('xulun')}
                 paintOnBeforeCompile={onBeforeCompile}
                 paintUniforms={uniformsData}
             />
-            {/* GITHUB */}
+            {/* 思想篇 */}
             <SocialBarrel
                 position={isMobile ? [-1.5, -0.3, -7] : [-5, -0.3, -8]}
                 rotation={[0, 0.3, 0]}
                 texturePath="/textures/contact/beczka.webp"
-                label="GITHUB"
-                onClick={() => window.open('https://github.com/ITomPoland', '_blank')}
+                label="思想篇"
+                onClick={() => handleSixiuBarrel('sixiang')}
                 paintOnBeforeCompile={onBeforeCompile}
                 paintUniforms={uniformsData}
             />
-            {/* FACEBOOK */}
+            {/* 道德篇 */}
             <SocialBarrel
                 position={isMobile ? [1.2, 0.5, -10] : [3, 0.5, -10]}
                 rotation={[0, -0.2, 0]}
                 texturePath="/textures/contact/beczka.webp"
-                label="FACEBOOK"
-                onClick={() => window.open('https://www.facebook.com/people/ITom/61586563487664/', '_blank')}
+                label="道德篇"
+                onClick={() => handleSixiuBarrel('daode')}
                 paintOnBeforeCompile={onBeforeCompile}
                 paintUniforms={uniformsData}
             />
-            {/* INSTAGRAM */}
+            {/* 法治篇 */}
             <SocialBarrel
                 position={isMobile ? [1.5, -0.3, -7] : [5, -0.3, -8]}
                 rotation={[0, -0.3, 0]}
                 texturePath="/textures/contact/beczka.webp"
-                label="INSTAGRAM"
-                onClick={() => window.open('https://www.instagram.com/itom.dev/', '_blank')}
+                label="法治篇"
+                onClick={() => handleSixiuBarrel('fazhi')}
                 paintOnBeforeCompile={onBeforeCompile}
                 paintUniforms={uniformsData}
             />
-            {/* MAIL (Triggers animation) */}
+            {/* 备考总览 */}
             <SocialBarrel
                 position={isMobile ? [0, -0.7, -6] : [0, -0.7, -7]}
                 rotation={[0, 0, 0]}
                 texturePath="/textures/contact/beczka.webp"
-                label="MESSAGE"
-                onClick={handleMailSelect}
+                label="备考"
+                onClick={() => handleSixiuBarrel('kaoyan')}
                 paintOnBeforeCompile={onBeforeCompile}
                 paintUniforms={uniformsData}
             />
@@ -497,19 +521,7 @@ const ContactRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
                 />
             </mesh>
 
-            {/* 📜 INTERACTIVE MESSAGE PAPER */}
-            {/* Only show when not selecting or when diving in? 
-                Actually we want it there but enabled only after selection
-            */}
-            <group visible={!showSelection}>
-                <MessagePaper
-                    position={[0, 0.07, 2]}
-                    onSend={(data) => {
-                        // console.log('📬 Contact form submitted:', data);
-                        unlockAchievement('contact_submit');
-                    }}
-                />
-            </group>
+            {/* 留言功能已移除: 思修法基桶已承载全部内容入口 */}
 
 
         </group>

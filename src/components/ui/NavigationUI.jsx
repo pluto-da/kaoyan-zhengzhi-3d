@@ -225,7 +225,7 @@ const NavigationUI = () => {
                 <button
                     className={`nav-btn back-btn ${isExiting ? 'exiting' : ''}`}
                     onClick={handleBackClick}
-                    aria-label="Back to corridor"
+                    aria-label="返回走廊"
                 >
                     <svg viewBox="0 0 24 24" className="icon-back">
                         <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -240,7 +240,7 @@ const NavigationUI = () => {
                     <button
                         className={`nav-btn hamburger-btn ${isMenuOpen ? 'open' : ''}`}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle menu"
+                        aria-label="切换菜单"
                         aria-expanded={isMenuOpen}
                     >
                         <div className="hamburger-icon">
@@ -253,7 +253,7 @@ const NavigationUI = () => {
                     <button
                         className={`nav-btn audio-btn ${isAudioMenuOpen ? 'open' : ''}`}
                         onClick={() => setIsAudioMenuOpen(!isAudioMenuOpen)}
-                        aria-label="Audio Settings"
+                        aria-label="音频设置"
                         aria-expanded={isAudioMenuOpen}
                     >
                         {isMuted ? (
@@ -274,7 +274,7 @@ const NavigationUI = () => {
                     <button
                         className={`nav-btn achievements-btn ${isAchievementsOpen ? 'open' : ''}`}
                         onClick={() => setIsAchievementsOpen(!isAchievementsOpen)}
-                        aria-label="Achievements"
+                        aria-label="成就"
                         aria-expanded={isAchievementsOpen}
                     >
                         <svg viewBox="0 0 24 24" className="icon-trophy">
@@ -288,7 +288,7 @@ const NavigationUI = () => {
 
             {/* Map Panel - Drops from top when open */}
             {hasEntered && (
-                <div className={`map-panel ${isMenuOpen ? 'open' : ''}`} inert={!isMenuOpen ? true : undefined} ref={mapPanelRef} onKeyDown={handleMapKeyDown} role="dialog" aria-label="Map">
+                <div className={`map-panel ${isMenuOpen ? 'open' : ''}`} inert={!isMenuOpen ? true : undefined} ref={mapPanelRef} onKeyDown={handleMapKeyDown} role="dialog" aria-label="地图">
                     {/* SVG Border Overlay */}
                     <svg
                         className="map-border-overlay"
@@ -317,12 +317,12 @@ const NavigationUI = () => {
 
                     <div className="map-content-clipped">
                         <div className="map-header">
-                            <h3>MAP</h3>
+                            <h3>地 图</h3>
                             <button
                                 ref={mapCloseRef}
                                 className="close-btn"
                                 onClick={() => setIsMenuOpen(false)}
-                                aria-label="Close map"
+                                aria-label="关闭地图"
                             >
                                 <svg viewBox="0 0 24 24">
                                     <path d="M18 6L6 18M6 6l12 12" />
@@ -331,7 +331,7 @@ const NavigationUI = () => {
                         </div>
                         <div className="map-container">
                             {/* Map background image */}
-                            <img src="/images/map.webp" alt="Portfolio Map" className="map-image" />
+                            <img src="/images/map.webp" alt="知识地图" className="map-image" />
 
                             {/* Painted Map Overlays */}
                             <img ref={paintedMapsRefs.about} src="/images/map_about_painted.webp" alt="" className="painted-map-layer" style={{ clipPath: 'polygon(10% 20%, 10% 20%, 10% 55%, 10% 55%)' }} />
@@ -348,7 +348,7 @@ const NavigationUI = () => {
                                 onFocus={() => setHoveredRoom('about')}
                                 onBlur={() => setHoveredRoom(null)}
                                 onClick={() => handleRoomClick('about')}
-                                aria-label="Teleport to About room"
+                                aria-label="传送到习思想房间"
                             />
                             <button
                                 type="button"
@@ -358,7 +358,7 @@ const NavigationUI = () => {
                                 onFocus={() => setHoveredRoom('gallery')}
                                 onBlur={() => setHoveredRoom(null)}
                                 onClick={() => handleRoomClick('gallery')}
-                                aria-label="Teleport to Gallery room"
+                                aria-label="传送到马原房间"
                             />
                             <button
                                 type="button"
@@ -368,7 +368,7 @@ const NavigationUI = () => {
                                 onFocus={() => setHoveredRoom('contact')}
                                 onBlur={() => setHoveredRoom(null)}
                                 onClick={() => handleRoomClick('contact')}
-                                aria-label="Teleport to Contact room"
+                                aria-label="传送到思修法基房间"
                             />
                             <button
                                 type="button"
@@ -378,14 +378,14 @@ const NavigationUI = () => {
                                 onFocus={() => setHoveredRoom('studio')}
                                 onBlur={() => setHoveredRoom(null)}
                                 onClick={() => handleRoomClick('studio')}
-                                aria-label="Teleport to Studio room"
+                                aria-label="传送到毛中特房间"
                             />
 
                             {/* Permanent Map Text Labels */}
-                            <div className="map-room-label about">ABOUT</div>
-                            <div className="map-room-label gallery">THE<br />GALLERY</div>
-                            <div className="map-room-label contact">CONTACT</div>
-                            <div className="map-room-label studio">THE<br />STUDIO</div>
+                            <div className="map-room-label about">习思想</div>
+                            <div className="map-room-label gallery">马原</div>
+                            <div className="map-room-label contact">思修法基</div>
+                            <div className="map-room-label studio">毛中特</div>
 
                             {/* Pin slot markers - 4 locations */}
                             {ROOMS.map((room) => (
@@ -432,11 +432,11 @@ const NavigationUI = () => {
                 <div className={`audio-panel ${isAudioMenuOpen ? 'open' : ''}`} inert={!isAudioMenuOpen ? true : undefined}>
                     <div className="audio-card">
                         <div className="audio-header">
-                            <h3>AUDIO SETTINGS</h3>
+                            <h3>音频设置</h3>
                             <button
                                 className="close-btn"
                                 onClick={() => setIsAudioMenuOpen(false)}
-                                aria-label="Close audio settings"
+                                aria-label="关闭音频设置"
                             >
                                 <svg viewBox="0 0 24 24">
                                     <path d="M18 6L6 18M6 6l12 12" />
@@ -455,13 +455,13 @@ const NavigationUI = () => {
                                     value={bgmVol}
                                     onChange={(e) => handleBgmChange(parseFloat(e.target.value))}
                                     className="paper-slider"
-                                    aria-label="Music volume"
+                                    aria-label="音乐音量"
                                     aria-valuetext={`${Math.round(bgmVol * 100)} percent`}
                                 />
                             </div>
                             <div className="slider-group">
                                 <div className="slider-label">
-                                    <span>SFX</span>
+                                    <span>音效</span>
                                     <span>{Math.round(globalVolume * 100)}%</span>
                                 </div>
                                 <input
@@ -470,7 +470,7 @@ const NavigationUI = () => {
                                     value={globalVolume}
                                     onChange={(e) => setGlobalVolume(parseFloat(e.target.value))}
                                     className="paper-slider"
-                                    aria-label="SFX volume"
+                                    aria-label="音效音量"
                                     aria-valuetext={`${Math.round(globalVolume * 100)} percent`}
                                 />
                             </div>

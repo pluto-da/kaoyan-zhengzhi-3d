@@ -4,7 +4,6 @@ import { Text, PositionalAudio } from '@react-three/drei';
 import * as THREE from 'three';
 import PaperAirplane from './PaperAirplane';
 import InfiniteSkyManager from './InfiniteSkyManager';
-import StoryMilestone from './StoryMilestone';
 import { useScene } from '../../../../context/SceneContext';
 import { useAchievements } from '../../../../context/AchievementsContext';
 import { useAudio } from '../../../../context/AudioManager';
@@ -21,15 +20,6 @@ export const AUDIO_SETTINGS = {
     distance: 2,
     rolloff: 0.8
 };
-
-// Story sections - positions define where each milestone appears
-// Using CHUNK_LENGTH to create looping story (every ~40 units restarts)
-const STORY_MILESTONES = [
-    { id: 'intro', position: [0, 0, -15], type: 'intro', title: 'ITOM', subtitle: '< creative developer />' },
-    { id: 'awards', position: [0, 0, -55], type: 'awards', title: 'AWARDS', subtitle: '1x SOTD Winner • 1x CSS Winner' },
-    { id: 'journey', position: [0, 0, -95], type: 'journey', title: 'JOURNEY', subtitle: 'Computer Science @ University of Opole' },
-    { id: 'skills', position: [0, 0, -135], type: 'skills', title: 'SKILLS', subtitle: 'React • Three.js • GSAP • Creative Code' },
-];
 
 const AboutRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
     const { camera } = useThree();

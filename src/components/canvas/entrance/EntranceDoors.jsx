@@ -8,8 +8,8 @@ import { playBackgroundMusic } from '../../../utils/audioManager';
 import { useAchievements } from '../../../context/AchievementsContext';
 import { isTouchDevice } from '../../../utils/deviceDetect';
 
-// Use same font as App.jsx preload (Inter) - works reliably
-const FONT_URL = 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff';
+// 备考鸭语录使用中文字体 (黑体) — Inter 在线字体不含汉字字形
+const FONT_URL = '/fonts/simhei-subset.ttf';
 
 
 
@@ -75,7 +75,6 @@ const EntranceDoors = ({
     // const catTexture = useTexture('/textures/entrance/cat_sketch.webp'); // Old side cat
     const catFrontBodyTexture = useTexture('/textures/entrance/cat_front_body.webp');
     const windowSketchTexture = useTexture('/textures/entrance/window_sketch.webp');
-    const avatarWindowTexture = useTexture('/textures/entrance/avatar_window.webp');
     const treeTexture = useTexture('/textures/entrance/tree_sketch.webp');
     const mouseTexture = useTexture('/textures/entrance/mouse_hanging.webp');
     const potTexture = useTexture('/textures/entrance/pot_with_duck.webp');
@@ -103,18 +102,18 @@ const EntranceDoors = ({
     const [duckQuote, setDuckQuote] = useState('');
     const speechBubbleRef = useRef();
 
-    // Rubber Duck Debugging Quotes
+    // Rubber Duck → 备考鸭语录 (考研政治激励)
     const duckQuotes = [
-        "Have you tried console.log()?",
-        "Did you clear the cache?",
-        "It works on my machine! 🤷",
-        "Have you turned it off and on again?",
-        "Maybe it's a CSS issue?",
-        "Check for missing semicolons!",
-        "Did you read the error message?",
-        "Have you tried Stack Overflow?",
-        "Is it plugged in?",
-        "Works in production! 🚀",
+        "矛盾是事物发展的动力!",
+        "实践是检验真理的唯一标准!",
+        "量变引起质变,坚持就是胜利!",
+        "抓住主要矛盾,分清主次!",
+        "否定之否定,螺旋式上升!",
+        "人民群众是历史的创造者!",
+        "一切从实际出发,实事求是!",
+        "认识-实践-再认识,循环往复!",
+        "前途是光明的,道路是曲折的!",
+        "每天背 100 个考点,稳稳的!",
     ];
 
     // Bug Click Handler
@@ -804,18 +803,7 @@ const EntranceDoors = ({
                 color="#fff8e8"
                 distance={10}
             /> */}
-            {/* AVATAR - separate from window group, behind bricks */}
-            <mesh
-                ref={windowAvatarRef}
-                position={[3.5, 0, 0.04]}
-                rotation={[0, 0, 0]}
-            >
-                <planeGeometry args={[1.5, 1.5]} />
-                <meshBasicMaterial color="#e0e0e0"
-                    map={avatarWindowTexture}
-                    transparent={true}
-                />
-            </mesh>
+            {/* AVATAR 自画像已移除(个人身份元素) - windowAvatarRef 保留为 null, 悬停动画自动 no-op */}
 
             {/* WINDOW - positioned to the right of doors */}
             <group
@@ -935,12 +923,12 @@ const EntranceDoors = ({
                 color="#1a1a1a"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/CabinSketch-Bold.ttf"
+                font="/fonts/simhei-subset.ttf"
                 outlineWidth={0.015}
                 outlineColor="#ffffff"
                 clipRect={[-1, -0.5, -1 + (clipProgress * 2.5), 0.5]}
             >
-                BUG FIXED!
+                考点解锁！
             </Text>
 
 

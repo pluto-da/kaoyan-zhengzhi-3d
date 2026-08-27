@@ -2,9 +2,48 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useScene } from '../../context/SceneContext';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
+import { ALL_SUBJECT_SUMMARIES } from '../../config/allSubjectSummaries';
+import { POLITICS_CONTENT } from '../../config/politicsContent';
 import '../../styles/GlobalOverlay.scss';
 
 gsap.registerPlugin(TextPlugin);
+
+/**
+ * 按卡片标签匹配考点数组 [[no, name, sum], ...] 或 null
+ * 优先 allSubjectSummaries(带提炼总结), 回退 politicsContent(仅考点名)
+ */
+export function findChapterPoints(subjectHint, itemLabel) {
+    if (!itemLabel) return null;
+    const label = itemLabel.replace(/^第\s*0*/, '第');
+
+    // 1.全科提炼数据匹配: 收集所有候选, 取最长章名匹配(避免"中国特色社会主义"公共前缀误匹配)
+    let best = null, bestLen = 0;
+    for (const key of Object.keys(ALL_SUBJECT_SUMMARIES)) {
+        for (const ch of ALL_SUBJECT_SUMMARIES[key]) {
+            const coreName = ch.title.replace(/^第\s*\d+\s*章\s*/, '').replace(/^(绪论|导论)\s*/, '').trim();
+            const matches = coreName.length >= 3 &&
+                (label.includes(coreName.slice(0, 12)) || coreName.includes(label.replace(/^(第\s*\d+\s*章\s*·?\s*)/, '').slice(0, 12)));
+            if (matches && coreName.length > bestLen) {
+                best = ch.points;
+                bestLen = coreName.length;
+            }
+        }
+    }
+    if (best) return best;
+
+    // 2. 回退 politicsContent (带完整考点名, 无总结) — 同样最长优先
+    let bestP = null, bestPLen = 0;
+    for (const c of POLITICS_CONTENT) {
+        const coreName = (c.name || '').replace(/^(绪论|导论)\s*/, '').trim();
+        const matches = coreName.length >= 3 &&
+            (label.includes(coreName.slice(0, 12)) || coreName.includes(label.replace(/^(第\s*\d+\s*章\s*·?\s*)/, '').slice(0, 12)));
+        if (matches && coreName.length > bestPLen) {
+            bestP = c.points.map(pt => [String(pt.no), pt.name, '']);
+            bestPLen = coreName.length;
+        }
+    }
+    return bestP;
+}
 
 const GlobalOverlay = () => {
     const { overlayContent, closeOverlay } = useScene();
@@ -312,9 +351,9 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                         pointerEvents: 'auto', // Re-enable clicks for the card
                         ...cardStyle,
                         // Override styles for grid layout to be centered and wider
-                        ...(content.layout === 'certificate_grid' ? {
+                        ...((content.layout === 'certificate_grid' || content.layout === 'shigang_timeline') ? {
                             // Make it centered and wide on desktop
-                            width: isMobile ? '95vw' : 'clamp(300px, 90vw, 1200px)',
+                            width: isMobile ? '95vw' : (content.layout === 'shigang_timeline' ? 'clamp(360px, 44vw, 560px)' : 'clamp(300px, 90vw, 1200px)'),
                             height: 'clamp(500px, 85vh, 900px)',
                             maxHeight: '85vh',
                             left: '50%',
@@ -398,7 +437,7 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                         <button
                             onClick={onClose}
                             className="studio-close-btn"
-                            aria-label="Close"
+                            aria-label="关闭"
                         >
                             <svg viewBox="0 0 24 24">
                                 <path d="M18 6L6 18M6 6l12 12" />
@@ -406,8 +445,29 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                         </button>
                     </div>
 
-                    {/* === LAYOUT: CERTIFICATE GRID === */}
-                    {content.layout === 'certificate_grid' ? (
+                    {/* === LAYOUT: SHIGANG TIMELINE (史纲考点列表) === */}
+                    {content.layout === 'shigang_timeline' ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+                            <div style={{
+                                fontWeight: 700, color: '#1a1a1a', fontSize: '1.05rem',
+                                borderBottom: '2px dashed #a02c2c', paddingBottom: '0.5rem', marginBottom: '0.7rem',
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                            }}>
+                                <span>核心考点</span>
+                                <span style={{ fontSize: '0.75rem', color: '#a02c2c', fontWeight: 600 }}>
+                                    共 {(content.points || []).length} 条 · 上下滑动查看
+                                </span>
+                            </div>
+                            <div className="shigang-points-scroll">
+                                {(content.points || []).map(([no, name, sum], pi) => (
+                                    <div key={pi} className="shigang-point-item">
+                                        <div className="point-name">{no}. {name}</div>
+                                        {sum && <div className="point-sum">{sum}</div>}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : content.layout === 'certificate_grid' ? (
                         <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
                             <div
                                 ref={scrollContainerRef}
@@ -465,12 +525,48 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                                             />
                                         </div>
                                         <div style={{ textAlign: 'center' }}>
-                                            <h4 style={{ margin: '0 0 0.4rem 0', fontSize: '1.2rem', fontWeight: 700, fontFamily: "'Rubik Scribble', cursive" }}>
+                                            <h4 style={{ margin: '0 0 0.4rem 0', fontSize: '1.2rem', fontWeight: 700, fontFamily: "'SimHei', sans-serif" }}>
                                                 {item.label}
                                             </h4>
-                                            <span style={{ fontSize: '1.1rem', color: '#4a4a4a', fontFamily: "'Cabin Sketch', cursive", fontWeight: 700 }}>
+                                            <span style={{ fontSize: '1.05rem', color: '#4a4a4a', fontWeight: 700 }}>
                                                 {item.date}
                                             </span>
+                                            {/* 知识点 + 提炼总结 列表 */}
+                                            {(() => {
+                                                const pts = findChapterPoints(content.title, item.label);
+                                                if (!pts?.length) return null;
+                                                return (
+                                                    <div style={{
+                                                        marginTop: '0.8rem',
+                                                        textAlign: 'left',
+                                                        fontSize: '0.92rem',
+                                                        lineHeight: 1.55,
+                                                        borderTop: '2px dashed #bbb',
+                                                        paddingTop: '0.6rem',
+                                                    }}>
+                                                        <div style={{ fontWeight: 700, color: '#1a1a1a', marginBottom: '0.3rem' }}>
+                                                            核心考点
+                                                        </div>
+                                                        {pts.slice(0, 8).map(([no, name, sum], pi) => (
+                                                            <div key={pi} style={{ marginBottom: '0.45rem' }}>
+                                                                <div style={{ color: '#1a1a1a', fontWeight: 600 }}>
+                                                                    {no}. {name}
+                                                                </div>
+                                                                {sum && (
+                                                                    <div style={{ color: '#777', fontSize: '0.85em', paddingLeft: '1.1em' }}>
+                                                                        → {sum}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                        {pts.length > 8 && (
+                                                            <div style={{ color: '#999', fontSize: '0.85em' }}>
+                                                                ……其余 {pts.length - 8} 条考点见笔记
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })()}
                                         </div>
                                     </div>
                                 ))}
@@ -513,18 +609,51 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                             </div>
 
                             {/* Description */}
-                            <p 
+                            <p
                                 ref={descriptionRef}
                                 style={{
                                 lineHeight: 1.6,
                                 color: '#333',
                                 fontSize: '0.95rem',
                                 margin: 0,
-                                minHeight: '80px', // Prevent layout jump while typing
+                                minHeight: '40px', // Prevent layout jump while typing
                                 ...getStaggerStyle(300)
                             }}>
                                 {content.description}
                             </p>
+
+                            {/* 知识点 + 提炼总结 列表 (与 certificate_grid 同款) */}
+                            {(() => {
+                                const pts = findChapterPoints(content.title, content.title);
+                                if (!pts?.length) return null;
+                                return (
+                                    <div style={{
+                                        marginTop: '0.4rem',
+                                        textAlign: 'left',
+                                        fontSize: '0.92rem',
+                                        lineHeight: 1.55,
+                                        overflowY: 'auto',
+                                        maxHeight: '46vh',
+                                        paddingRight: '0.5rem',
+                                    }}>
+                                        <div style={{ fontWeight: 700, color: '#1a1a1a', marginBottom: '0.4rem', borderBottom: '2px dashed #bbb', paddingBottom: '0.4rem' }}>
+                                            核心考点
+                                        </div>
+                                        {pts.map(([no, name, sum], pi) => (
+                                            <div key={pi} style={{ marginBottom: '0.5rem' }}>
+                                                <div style={{ color: '#1a1a1a', fontWeight: 600 }}>
+                                                    {no}. {name}
+                                                </div>
+                                                {sum && (
+                                                    <div style={{ color: '#777', fontSize: '0.85em', paddingLeft: '1.1em' }}>
+                                                        → {sum}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })()}
 
                             {/* Action Button */}
                             <div style={{
@@ -538,7 +667,7 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                                     rel="noopener noreferrer"
                                     className="studio-action-button"
                                 >
-                                    Open Link ↗
+                                查看详情 ↗
                                 </a>
                             </div>
                         </>

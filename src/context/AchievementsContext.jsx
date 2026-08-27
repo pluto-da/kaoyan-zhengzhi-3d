@@ -1,16 +1,15 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { useAudio } from './AudioManager';
-import posthog from 'posthog-js';
 
 const AchievementsContext = createContext();
 
 export const ACHIEVEMENTS = {
-    corridor_enter: { id: 'corridor_enter', label: 'Click a door to enter', title: 'Explorer' },
-    corridor_explore: { id: 'corridor_explore', label: 'Scroll to explore the corridor', title: 'Wanderer' },
-    about_fly: { id: 'about_fly', label: 'Scroll to fly through my story', title: 'Sky Walker' },
-    studio_interact: { id: 'studio_interact', label: 'Drag to rotate and browse', title: 'Director' },
-    gallery_inspect: { id: 'gallery_inspect', label: 'Click project to inspect', title: 'Art Critic' },
-    contact_choose: { id: 'contact_choose', label: 'Find a contact method', title: 'Sociable' }
+    corridor_enter: { id: 'corridor_enter', label: '点击门进入房间', title: '初入走廊' },
+    corridor_explore: { id: 'corridor_explore', label: '滚动探索走廊', title: '漫步时光' },
+    about_fly: { id: 'about_fly', label: '滚动翱翔于知识天空', title: '凌空展翅' },
+    studio_interact: { id: 'studio_interact', label: '拖拽旋转浏览理论', title: '理论探索者' },
+    gallery_inspect: { id: 'gallery_inspect', label: '点击画卡查看考点', title: '概念鉴赏家' },
+    contact_choose: { id: 'contact_choose', label: '选择一个学习板块', title: '求学问道' }
 };
 
 export const AchievementsProvider = ({ children }) => {
@@ -22,7 +21,7 @@ export const AchievementsProvider = ({ children }) => {
     // Load completed achievements from local storage
     const [completed, setCompleted] = useState(() => {
         try {
-            const saved = localStorage.getItem('itom_achievements');
+            const saved = localStorage.getItem('zzz_politics_achievements');
             if (saved) {
                 const parsed = JSON.parse(saved);
                 // Wrzucamy do pule, ale ignorujemy 'corridor_enter' żeby tooltip wejściowy zawsze się pojawiał
@@ -96,7 +95,7 @@ export const AchievementsProvider = ({ children }) => {
     // Save to localStorage when completed changes
     useEffect(() => {
         const toSave = completed.filter(id => id !== 'corridor_enter');
-        localStorage.setItem('itom_achievements', JSON.stringify(toSave));
+        localStorage.setItem('zzz_politics_achievements', JSON.stringify(toSave));
     }, [completed]);
 
     const showTutorial = useCallback((id) => {
@@ -119,18 +118,11 @@ export const AchievementsProvider = ({ children }) => {
                 const updated = [...prev, id];
                 // Save locally excluding corridor_enter
                 const toSave = updated.filter(item => item !== 'corridor_enter');
-                localStorage.setItem('itom_achievements', JSON.stringify(toSave));
+                localStorage.setItem('zzz_politics_achievements', JSON.stringify(toSave));
                 return updated;
             });
 
-            // Send event to PostHog
-            const achievementData = ACHIEVEMENTS[id];
-            if (achievementData) {
-                posthog.capture('achievement_unlocked', {
-                    achievement_id: id,
-                    achievement_title: achievementData.title,
-                });
-            }
+            // (PostHog 已移除: 离线知识库版本不做行为分析上报)
 
             // Trigger sound effect
             playUnlockChime();

@@ -5,6 +5,8 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { Observer } from 'gsap/all';
 import { useScene } from '../../../../context/SceneContext';
+import { POLITICS_CONTENT } from '../../../../config/politicsContent';
+import { findMayuanChapter } from '../../../../config/mayuanSummaries';
 
 gsap.registerPlugin(Observer);
 import { useAchievements } from '../../../../context/AchievementsContext';
@@ -34,42 +36,88 @@ export const GALLERY_INTERACTION_AUDIO_SETTINGS = {
 };
 
 // Define the unique projects and their textures
+// 马原 9 章卡片 — 内容来自 研库/Wiki/05 政治/01 马原/ 真实笔记
 const FALLBACK_PROJECTS = [
     {
-        id: 'monetune',
-        title: 'MONETUNE',
+        id: 'mayuan-daolun',
+        title: '导论',
         front: '/textures/gallery/monetuneprzod.webp',
         painted: '/textures/gallery/monetuneprzod_painted.webp',
-        url: 'https://monetune.pl',
-        description: 'MoneTune is a step-by-step blueprint that teaches beginners how to generate passive income using AI-created music. Without any musical skills, you will learn how to easily produce professional tracks, publish them on platforms like Spotify, and monetize your digital assets.',
-        techStack: ['/textures/gallery/wordpresslogo.webp', '/textures/gallery/elementorlogo.webp', '/textures/gallery/phplogo.webp', '/textures/gallery/csslogo.webp']
+        url: null,
+        description: '马克思主义是关于无产阶级和人类解放的科学 · 徐涛核心考案 p.3–p.8 · 考频:高频',
+        techStack: []
     },
     {
-        id: 'timber',
-        title: 'TIMBERKITTY',
+        id: 'mayuan-weiwu',
+        title: '第 1 章 辩证唯物论',
         front: '/textures/gallery/timberkittyprzod.webp',
         painted: '/textures/gallery/timberkittyprzod_painted.webp',
-        url: 'https://timberkitty.netlify.app',
-        description: 'TimberKitty is an addictive, free-to-play browser arcade game built in pure JavaScript. Players control a lumberjack cat to chop wood, save birds, complete daily missions, and compete on global leaderboards.',
-        techStack: ['/textures/gallery/jslogo.webp', '/textures/gallery/htmllogo.webp', '/textures/gallery/csslogo.webp', '/textures/gallery/firebaselogo.webp']
+        url: null,
+        description: '世界是什么样:物质、意识、时空、规律 · 马原哲学第一根柱子 · p.9–p.17 · ★★★★★每年必现',
+        techStack: []
     },
     {
-        id: 'young',
-        title: 'YOUNG MULTI',
+        id: 'mayuan-bianzhengfa',
+        title: '第 2 章 唯物辩证法',
         front: '/textures/gallery/youngmultiprzod.webp',
         painted: '/textures/gallery/youngmultiprzod_painted.webp',
-        url: 'https://young-multi-strona.netlify.app',
-        description: 'A sleek, modern concept website dedicated to the Polish rapper and creator Young Multi. It serves as a promotional landing page designed to highlight his personal brand, music, and online presence.',
-        techStack: ['/textures/gallery/reactlogo.webp', '/textures/gallery/tailwindlogo.webp', '/textures/gallery/htmllogo.webp', '/textures/gallery/netlifylogo.webp']
+        url: null,
+        description: '分析题主战场:2大总特征+3大规律+5对范畴+6大思维能力,矛盾家族树 · p.18–p.28 · ★★★★★每年必现',
+        techStack: []
     },
     {
-        id: 'bio',
-        title: 'BIO',
+        id: 'mayuan-renshilun',
+        title: '第 3 章 认识论',
         front: '/textures/gallery/bioprzod.webp',
         painted: '/textures/gallery/bioprzod_painted.webp',
-        url: 'https://tomkingbio.netlify.app',
-        description: 'A fast, modern personal bio page serving as a central hub for my digital footprint. It showcases my latest coding projects, web development services, YouTube videos, and recommended music artists.',
-        techStack: ['/textures/gallery/htmllogo.webp', '/textures/gallery/csslogo.webp', '/textures/gallery/jslogo.webp', '/textures/gallery/netlifylogo.webp']
+        url: null,
+        description: '哲学层 · 徐涛核心考案 p.29–p.44 · 考频:高频',
+        techStack: []
+    },
+    {
+        id: 'mayuan-shiguan',
+        title: '第 4 章 唯物史观',
+        front: '/textures/gallery/monetuneprzod.webp',
+        painted: '/textures/gallery/monetuneprzod_painted.webp',
+        url: null,
+        description: '哲学层 · 徐涛核心考案 p.45–p.60 · 考频:高频',
+        techStack: []
+    },
+    {
+        id: 'mayuan-ziben1',
+        title: '第 5 章 资本主义的本质及规律',
+        front: '/textures/gallery/timberkittyprzod.webp',
+        painted: '/textures/gallery/timberkittyprzod_painted.webp',
+        url: null,
+        description: '政经层 · 徐涛核心考案 p.61–p.76 · 考频:高频',
+        techStack: []
+    },
+    {
+        id: 'mayuan-ziben2',
+        title: '第 6 章 资本主义的发展及其趋势',
+        front: '/textures/gallery/youngmultiprzod.webp',
+        painted: '/textures/gallery/youngmultiprzod_painted.webp',
+        url: null,
+        description: '政经层 · 徐涛核心考案 p.77–p.87 · 考频:高频',
+        techStack: []
+    },
+    {
+        id: 'mayuan-shehui',
+        title: '第 7 章 社会主义的发展及其规律',
+        front: '/textures/gallery/bioprzod.webp',
+        painted: '/textures/gallery/bioprzod_painted.webp',
+        url: null,
+        description: '科社层 · 徐涛核心考案 p.88–p.94 · 考频:高频',
+        techStack: []
+    },
+    {
+        id: 'mayuan-gongchan',
+        title: '第 8 章 共产主义崇高理想及其最终实现',
+        front: '/textures/gallery/monetuneprzod.webp',
+        painted: '/textures/gallery/monetuneprzod_painted.webp',
+        url: null,
+        description: '科社层 · 徐涛核心考案 p.95–p.98 · 考频:高频',
+        techStack: []
     },
 ];
 
@@ -1169,14 +1217,14 @@ const ProjectCard = memo(forwardRef(({ index, project, clothespinTexture, curren
                         anchorY="middle"
                         fillOpacity={0} // Start hidden
                     >
-                        OPEN PROJECT
+                        打开笔记
                     </Text>
 
                     {/* Warstwa 3: Niewidoczny hit-area pokrywający cały przycisk - łapie WSZYSTKIE eventy */}
                     <mesh
                         position={[0, 0, 0.02]}
                         onClick={(e) => {
-                            if (isSelected && !isTransitioning) {
+                            if (isSelected && !isTransitioning && project.url) {
                                 e.stopPropagation();
                                 window.open(project.url, '_blank');
                             }
@@ -1210,28 +1258,41 @@ const ProjectCard = memo(forwardRef(({ index, project, clothespinTexture, curren
                         position={[0, 0.28, 0.01]} // Względem środka detailsGroupRef, wyżej
                         fontSize={0.10}
                         color="#1c1c1c"
-                        font="/fonts/CabinSketch-Bold.ttf"
+                        font="/fonts/simhei-subset.ttf"
                         anchorX="center"
                         anchorY="middle"
                         fillOpacity={0} // Start hidden
                     >
-                        PROJECT DETAILS:
+                        核心考点
                     </Text>
 
                     <Text
                         ref={detailsTextRef2}
                         position={[0, 0.2, 0.01]} // Poniżej nagłówka
-                        fontSize={0.06}
+                        fontSize={0.048}
                         color="#333333"
-                        font="/fonts/CabinSketch-Bold.ttf"
+                        font="/fonts/simhei-subset.ttf"
                         anchorX="center"
                         anchorY="top"
-                        maxWidth={1.1} // Maksymalna szerokość zanim zacznie łamać linie
-                        lineHeight={1.4}
+                        maxWidth={1.2} // Maksymalna szerokość zanim zacznie łamać linie
+                        lineHeight={1.3}
                         textAlign="center"
                         fillOpacity={0} // Start hidden
                     >
-                        {project.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."}
+                        {(() => {
+                            // 知识点(原名) + 提炼总结(缩进灰字由排版体现)
+                            const ch = findMayuanChapter(project.title);
+                            if (!ch) {
+                                // 非马原章, 回退 politicsContent
+                                const c = POLITICS_CONTENT.find(cc => project.title.includes(cc.name));
+                                if (!c || !c.points?.length) return project.description || '';
+                                return c.points.slice(0, 6).map(pt => `${pt.no}. ${pt.name}`).join('\n');
+                            }
+                            // 每条: 原考点名 ↵ 提炼总结(前加"→"), 最多5条
+                            return ch.points.slice(0, 5)
+                                .map(([no, name, sum]) => sum ? `${no}. ${name}\n→ ${sum}` : `${no}. ${name}`)
+                                .join('\n');
+                        })()}
                     </Text>
                 </group>
 
@@ -1246,27 +1307,47 @@ const ProjectCard = memo(forwardRef(({ index, project, clothespinTexture, curren
                         position={[0, 0.15, 0.01]}
                         fontSize={0.08}
                         color="#1c1c1c"
-                        font="/fonts/CabinSketch-Bold.ttf"
+                        font="/fonts/simhei-subset.ttf"
                         anchorX="center"
                         anchorY="middle"
                         fillOpacity={0} // Start hidden
                     >
-                        TECH STACK
+                        徐涛题眼
                     </Text>
 
-                    {/* Kontener na loga układane poziomo */}
-                    <group position={[0, -0.05, 0.01]}>
-                        {project.techStack && project.techStack.map((logoPath, idx) => {
-                            // Rozstawienie kwadracików (4 sztuki wyśrodkowane)
-                            const spacing = 0.30;
-                            const startX = -((project.techStack.length - 1) * spacing) / 2;
-                            const xPos = startX + (idx * spacing);
-
-                            return (
-                                <TechStackLogo key={idx} path={logoPath} position={[xPos, 0, 0]} />
-                            );
-                        })}
-                    </group>
+                    {/* 题眼提示文字(替代原 techStack logo 槽) */}
+                    <Text
+                        position={[0, -0.02, 0.01]}
+                        fontSize={0.042}
+                        color="#555555"
+                        font="/fonts/simhei-subset.ttf"
+                        anchorX="center"
+                        anchorY="top"
+                        maxWidth={1.05}
+                        lineHeight={1.35}
+                        textAlign="center"
+                        fillOpacity={0} // Start hidden
+                    >
+                        {(() => {
+                            const ch = findMayuanChapter(project.title);
+                            if (ch === null) {
+                                const c = POLITICS_CONTENT.find(cc => project.title.includes(cc.name));
+                                if (!c) return '';
+                                const parts = [];
+                                if (c.kaopin) parts.push(`考频:${c.kaopin}`);
+                                if (c.priority) parts.push(`重点度:${c.priority}`);
+                                if (c.yicuo?.[0]) parts.push(`易错:${c.yicuo[0]}`);
+                                return parts.join('\n') || '详见核心考案';
+                            }
+                            // 马原各章题眼(考频+易错)
+                            const polit = POLITICS_CONTENT.find(cc => project.title.includes(cc.name));
+                            const parts = [];
+                            if (polit?.kaopin) parts.push(`考频:${polit.kaopin}`);
+                            if (polit?.priority) parts.push(`重点度:${polit.priority}`);
+                            if (polit?.yicuo?.[0]) parts.push(`易错:${polit.yicuo[0]}`);
+                            return parts.join('\n') || '详见核心考案';
+                        })()}
+                    </Text>
                 </group>
 
                 {/* 
@@ -1287,7 +1368,7 @@ const ProjectCard = memo(forwardRef(({ index, project, clothespinTexture, curren
                     position={[0, 0.7, 0]} // Tylko dwa pierwsze parametry [X, Y] mają tutaj znaczenie
                     fontSize={0.20}
                     color="#1c1c1c"
-                    font="/fonts/CabinSketch-Bold.ttf"
+                    font="/fonts/simhei-subset.ttf"
                     anchorX="center"
                     anchorY="middle"
                     fillOpacity={0} // Start hidden

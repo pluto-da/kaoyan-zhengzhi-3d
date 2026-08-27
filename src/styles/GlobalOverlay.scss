@@ -267,3 +267,69 @@
         }
     }
 }
+
+/* === SHIGANG TIMELINE 考点滚动区 === */
+.shigang-points-scroll {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    padding-right: 0.6rem;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent 0px, transparent 6px,
+            rgba(90, 70, 48, 0.12) 6px, rgba(90, 70, 48, 0.12) 8px
+        );
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #a02c2c;
+        border: 2px dashed #f6efdd;
+        border-radius: 6px;
+
+        &:hover {
+            background: #b83535;
+        }
+    }
+    scrollbar-width: thin;
+    scrollbar-color: #a02c2c rgba(90, 70, 48, 0.12);
+}
+
+.shigang-point-item {
+    margin-bottom: 0.6rem;
+    padding: 0.45rem 0.55rem;
+    border: 1.5px solid rgba(90, 70, 48, 0.35);
+    border-radius: 4px 14px 5px 12px / 12px 5px 14px 4px;
+    background: rgba(246, 239, 221, 0.5);
+    transition: transform 0.15s, background 0.15s;
+
+    &:hover {
+        background: rgba(255, 237, 202, 0.8);
+        transform: translateX(3px);
+    }
+
+    .point-name {
+        color: #1a1a1a;
+        font-weight: 700;
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .point-sum {
+        color: #6b5a42;
+        font-size: 0.85rem;
+        line-height: 1.55;
+        padding-left: 1.1em;
+        margin-top: 0.15rem;
+
+        &::before {
+            content: '→ ';
+            color: #a02c2c;
+            font-weight: 700;
+        }
+    }
+}
