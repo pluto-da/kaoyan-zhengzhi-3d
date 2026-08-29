@@ -1312,7 +1312,7 @@ const ProjectCard = memo(forwardRef(({ index, project, clothespinTexture, curren
                         anchorY="middle"
                         fillOpacity={0} // Start hidden
                     >
-                        研途考研机构 徐涛2027《核心考案》知识点简单提炼
+                        研途考研机构 徐涛2027《核心考案》政治知识点简单提炼
                     </Text>
 
                     {/* 题眼提示文字(替代原 techStack logo 槽) */}
